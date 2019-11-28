@@ -29,7 +29,7 @@ private:
 
 public:
 	GLWindow();
-	GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, std::string WindowName);
+	GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName);
 	~GLWindow();
 	GLFWwindow* GetWindow() { return Window; }
 

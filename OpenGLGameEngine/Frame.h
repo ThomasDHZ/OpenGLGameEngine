@@ -1,7 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
 #include "ColorEnum.h"
-#include "IVec2.h"
 #include <glad\glad.h>
 #include <FileSystem.h>
 #include <iostream>
@@ -19,20 +18,20 @@ private:
 	unsigned int FrameTextureID;
 	unsigned char* FrameTexture;
 	unsigned Channels;
-	IVec2 FrameSize;
+	//IVec2 FrameSize;
 
 public:
 	Frame();
-	Frame(IVec2 Size);
+	//Frame(IVec2 Size);
 	~Frame();
 
-	void SetPixel(IVec2 pixelCoord, Color color);
+	//void SetPixel(IVec2 pixelCoord, Color color);
 
 	unsigned char* GetFrame();
-	unsigned char GetPixel(IVec2 pixelCoord);
+	//unsigned char GetPixel(IVec2 pixelCoord);
 	unsigned int GetFrameTextureID();
 	unsigned int LoadTexture(const char* path);
-	IVec2 GetFrameSize();
+	//IVec2 GetFrameSize();
 
 };
 

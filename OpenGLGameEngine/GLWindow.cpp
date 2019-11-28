@@ -11,7 +11,7 @@ GLWindow::~GLWindow()
 	Window = nullptr;
 }
 
-GLWindow::GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, std::string WindowName)
+GLWindow::GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName)
 {
 	Width = width;
 	Height = height;
@@ -24,7 +24,7 @@ GLWindow::GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMi
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OpenGLVersionMinor);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	Window = glfwCreateWindow(Width, Height, "LearnOpenGL", NULL, NULL);
+	Window = glfwCreateWindow(Width, Height, WindowName, NULL, NULL);
 	if (Window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
