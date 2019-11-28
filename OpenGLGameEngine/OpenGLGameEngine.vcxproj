@@ -95,6 +95,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,14 +135,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="GLWindow.cpp" />
+    <ClCompile Include="IVec2.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CudaTest.cuh" />
+    <ClInclude Include="..\..\..\..\Desktop\New folder (5)\OpenGLEngine\Include\Soil\stb_image.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="ColorEnum.h" />
+    <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GLWindow.h" />
+    <ClInclude Include="IVec2.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="model.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="shader_m.h" />
+    <ClInclude Include="shader_s.h" />
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="CudaTest.cu" />
+    <None Include="1.advanced_lighting.fs" />
+    <None Include="1.advanced_lighting.vs" />
+    <None Include="4.2.texture.fs" />
+    <None Include="4.2.texture.vs" />
+    <None Include="5.1.framebuffers.fs" />
+    <None Include="5.1.framebuffers.vs" />
+    <None Include="5.1.framebuffers_screen.fs" />
+    <None Include="5.1.framebuffers_screen.vs" />
+    <None Include="6.hdr.fs" />
+    <None Include="6.hdr.vs" />
+    <None Include="6.lighting.fs" />
+    <None Include="6.lighting.vs" />
+    <None Include="Shader.fs" />
+    <None Include="Shader.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\alefgardfull4KTest.bmp" />
+    <Image Include="..\Assets\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

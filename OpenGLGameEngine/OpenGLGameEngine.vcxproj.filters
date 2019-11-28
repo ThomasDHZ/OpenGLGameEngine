@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{3f6b09a3-6f4f-4183-9736-b9e97385ddc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{74d80be3-07a1-445b-9f4c-e8682391013c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -21,11 +27,113 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IVec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CudaTest.cuh" />
+    <ClInclude Include="..\..\..\..\Desktop\New folder (5)\OpenGLEngine\Include\Soil\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_m.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IVec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="CudaTest.cu" />
+    <None Include="Shader.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="Shader.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="1.advanced_lighting.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="1.advanced_lighting.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="6.lighting.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="6.lighting.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="6.hdr.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="6.hdr.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_screen.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers_screen.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="4.2.texture.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="4.2.texture.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\wall.jpg">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\Assets\alefgardfull4KTest.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
