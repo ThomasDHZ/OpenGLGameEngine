@@ -2,6 +2,7 @@
 #include "GLManager.h"
 #include "GLWindow.h"
 #include "Mesh.h"
+#include "Texture.h"
 
 class Game
 {
@@ -17,11 +18,13 @@ private:
 	GLManager GraphicsManager;
 	GLWindow Window;
 	Mesh mesh;
+	Texture texture;
+	Texture texture2;
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName);
 	~Game();
 	void ProcessInput();
-	void ProcessMouse(double xpos, double ypos);
+	void ProcessMouse();
 	void MainLoop();
 	void Update();
 

@@ -7,6 +7,8 @@ class Mesh
 {
 private:
 	unsigned int VertexCount;
+	unsigned int IndiceCount;
+	unsigned int TextureID;
 	unsigned int VBO;
 	unsigned int VAO;
 	unsigned int EBO;
@@ -19,6 +21,7 @@ public:
 	Mesh& operator=(const Mesh& rhs);
 
 	void Update(GLManager& manager);
+	void SetTextureID(unsigned int textureID);
 	void DeleteBuffers();
 };
 
