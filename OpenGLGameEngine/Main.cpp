@@ -10,22 +10,6 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\n\0";
 
 int main()
 {
@@ -33,26 +17,13 @@ int main()
 
 	GLManager glManager = GLManager();
 
-	GLWindow window = { 4, 6, 800, 800, "GameWindow" };
+	GLWindow window = { 4, 6, 3840, 2160, "GameWindow" };
 
 	glManager.CompileVertexShader("Shader.vs");
 	glManager.CompileFragmentShader("Shader.fs");
 	glManager.BindShaderProgram(glManager.GetVertexShader(), glManager.GetFragmentShader());
 
-	// set up vertex data (and buffer(s)) and configure vertex attributes
-	// ------------------------------------------------------------------
-	float vertices[] = {
-		 0.5f,  0.5f, 0.0f,  // top right
-		 0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f   // top left 
-	};
-	unsigned int indices[] = {  // note that we start from 0!
-		0, 1, 3,  // first Triangle
-		1, 2, 3   // second Triangle
-	};
-
-	std::vector<Vertex> vertices2 =
+	std::vector<Vertex> vertices =
 	{
 		{ vec3{0.5f,  .5f, 0.0f} },
 		{ vec3{0.5f, -.5f, 0.0f} },
@@ -61,26 +32,17 @@ int main()
 	};
 
 
-	std::vector<unsigned int> indices2 =
+	std::vector<unsigned int> indices =
 	{
-		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
+		0, 1, 3,
+		1, 2, 3 
 	};
 
-	Mesh mesh = Mesh(vertices2, indices2, glManager);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	Mesh mesh = Mesh(vertices, indices, glManager);
 
-	// render loop
-	// -----------
 	while (!glfwWindowShouldClose(window.GetWindow()))
 	{
 		window.Update();
-		processInput(window.GetWindow());
-
-		// render
-		// ------
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		glManager.UseShaderProgram(glManager.GetShaderProgram());
 		mesh.Update(glManager);
@@ -89,28 +51,7 @@ int main()
 	}
 
 	mesh.DeleteBuffers();
-
-	// glfw: terminate, clearing all previously allocated GLFW resources.
-	// ------------------------------------------------------------------
-	glfwTerminate();
 	return 0;
-}
-
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-}
-
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	// make sure the viewport matches the new window dimensions; note that width and 
-	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
 }
 
 //

@@ -1,5 +1,6 @@
 #include "GLWindow.h"
 #include <iostream>
+#include <GL/gl.h>
 
 GLWindow::GLWindow()
 {
@@ -47,7 +48,12 @@ void GLWindow::ProcessInput()
 {
 	if (glfwGetKey(Window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(Window, true);
-
+	if(glfwGetKey(Window, GLFW_KEY_1) == GLFW_PRESS)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if (glfwGetKey(Window, GLFW_KEY_2) == GLFW_PRESS)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+	if (glfwGetKey(Window, GLFW_KEY_3) == GLFW_PRESS)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	//	camera.ProcessKeyboard(FORWARD, deltaTime);
 	//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -85,7 +91,12 @@ void GLWindow::ProcessMouse(double xpos, double ypos)
 
 void GLWindow::BufferSize()
 {
-	glViewport(0, 0, Width, Height);
+	if (Width > Height) {
+		glViewport(0, (Height - Width) / 2, Width, Width);
+	}
+	else {
+		glViewport((Width - Height) / 2, 0, Height, Height);
+	}
 }
 
 void GLWindow::Update()
