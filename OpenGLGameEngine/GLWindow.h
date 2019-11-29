@@ -13,13 +13,6 @@ private:
 	unsigned int OpenGLVersionMinor;
 	int Width = 0;
 	int Height = 0;
-	float DeltaTime = 0.0f;
-	float LastFrame = 0.0f;
-	float LastX = 1000 / 2.0f;
-	float LastY = 1000 / 2.0f;
-	double MouseXPos;
-	double MouseYPos;
-	bool FirstMouse = true;
 	glm::mat4 Projection;
 	glm::mat4 View;
 
@@ -33,13 +26,12 @@ public:
 	~GLWindow();
 	GLFWwindow* GetWindow() { return Window; }
 
-	void ProcessInput();
-	void ProcessMouse(double xpos, double ypos);
 	void BufferSize();
-	void Update();
+	void StartFrame();
 	void EndFrame();
 	void SetBackGroundColor(float red, float green, float blue);
 	void SetBackGroundColor(glm::vec3 color);
+	void ShutDownGLWindow();
 
 	//Camera GetCamera() { return camera; }
 	//unsigned int GetWindowWidth() { return width; }

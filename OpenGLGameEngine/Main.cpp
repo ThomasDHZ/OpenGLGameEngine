@@ -1,56 +1,13 @@
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include "GLWindow.h"
-#include "Mesh.h"
-#include "GLManager.h"
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
-
+#include "Game.h"
 
 int main()
 {
-	using namespace glm;
-
-	GLManager glManager = GLManager();
-
-	GLWindow window = { 4, 6, 3840, 2160, "GameWindow" };
-
-	glManager.CompileVertexShader("Shader.vs");
-	glManager.CompileFragmentShader("Shader.fs");
-	glManager.BindShaderProgram(glManager.GetVertexShader(), glManager.GetFragmentShader());
-
-	std::vector<Vertex> vertices =
+	Game game = Game(4, 6, 3840, 2160, "GameWindow");
+	while (!glfwWindowShouldClose(game.GetWindow()))
 	{
-		{ vec3{0.5f,  .5f, 0.0f} },
-		{ vec3{0.5f, -.5f, 0.0f} },
-		{ vec3{-.5f, -.5f, 0.0f} },
-		{ vec3{-.5f,  .5f, 0.0f} }
-	};
-
-
-	std::vector<unsigned int> indices =
-	{
-		0, 1, 3,
-		1, 2, 3 
-	};
-
-	Mesh mesh = Mesh(vertices, indices, glManager);
-
-	while (!glfwWindowShouldClose(window.GetWindow()))
-	{
-		window.Update();
-
-		glManager.UseShaderProgram(glManager.GetShaderProgram());
-		mesh.Update(glManager);
-
-		window.EndFrame();
+		game.MainLoop();
 	}
 
-	mesh.DeleteBuffers();
 	return 0;
 }
 
