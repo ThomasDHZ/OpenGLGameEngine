@@ -20,6 +20,9 @@ private:
 	Mesh mesh;
 	Texture texture;
 	Texture texture2;
+	Texture texture3;
+	glm::vec3 cubePositions[10];
+
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName);
 	~Game();

@@ -4,6 +4,7 @@
 #include "../../../../Desktop/New folder (5)/OpenGLEngine/Include/Soil/stb_image.h"
 #include <FileSystem.h>
 #include <iostream>
+#include "ColorEnum.h"
 
 Texture::Texture()
 {
@@ -11,7 +12,20 @@ Texture::Texture()
 
 Texture::Texture(unsigned int Width, unsigned int Height)
 {
+	Color* NewTexture = new Color[Width * Height];
 
+	glGenTextures(1, &TextureID);
+	glBindTexture(GL_TEXTURE_2D, TextureID);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NewTexture);
+
+	delete[] NewTexture;
+	NewTexture = nullptr;
 }
 
 Texture::Texture(char const* FilePath)

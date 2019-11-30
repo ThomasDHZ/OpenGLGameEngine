@@ -8,17 +8,13 @@
 class GLWindow
 {
 private:
-	//Camera camera;
 	unsigned int OpenGLVersionMajor;
 	unsigned int OpenGLVersionMinor;
 	int Width = 0;
 	int Height = 0;
-	glm::mat4 Projection;
-	glm::mat4 View;
 
 	GLFWwindow* Window;
 	glm::vec3 BackGroundColor = glm::vec3(0.0f);
-
 
 public:
 	GLWindow();
@@ -33,10 +29,7 @@ public:
 	void SetBackGroundColor(glm::vec3 color);
 	void ShutDownGLWindow();
 
-	//Camera GetCamera() { return camera; }
-	//unsigned int GetWindowWidth() { return width; }
-	//unsigned int GetWindowHeight() { return height; }
-	//glm::mat4 GetProjection() { return projection; }
-	//glm::mat4 GetView() { return view; }
+	int GetWindowWidth() { return Width; }
+	int GetWindowHeight() { return Height; }
 };
 

@@ -5,7 +5,7 @@ class GLManager
 {
 private:
 	 unsigned int BoundVertexArrayObjectID;
-	 unsigned int ShaderProgramID;
+	 unsigned int BoundShaderProgramID;
 
 	 unsigned int BoundVertexShader;
 	 unsigned int BoundFragmentShader;

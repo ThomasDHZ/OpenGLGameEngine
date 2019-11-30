@@ -39,18 +39,11 @@ GLWindow::GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMi
 	}
 
 	glEnable(GL_DEPTH_TEST);
-
-	//camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 }
 
 void GLWindow::BufferSize()
 {
-	if (Width > Height) {
-		glViewport(0, (Height - Width) / 2, Width, Width);
-	}
-	else {
-		glViewport((Width - Height) / 2, 0, Height, Height);
-	}
+	glViewport(0, 0, Width, Height);
 }
 
 void GLWindow::StartFrame()

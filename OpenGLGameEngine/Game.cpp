@@ -1,22 +1,68 @@
 #include "Game.h"
 #include "../../../../Desktop/New folder (5)/OpenGLEngine/Include/Soil/stb_image.h"
 #include <FileSystem.h>
+#include <glm\ext\matrix_transform.hpp>
+#include <glm\ext\matrix_clip_space.hpp>
 
 Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName)
 {
-	std::vector<Vertex> vertices =
-	{
-		{ glm::vec3{0.5f,  .5f, 0.0f}, glm::vec3{1.0f, 0.0f, 0.0f}, glm::vec2(1.0f, 1.0f) },
-		{ glm::vec3{0.5f, -.5f, 0.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2(1.0f, 0.0f) },
-		{ glm::vec3{-.5f, -.5f, 0.0f}, glm::vec3{0.0f, 0.0f, 1.0f}, glm::vec2(0.0f, 0.0f) },
-		{ glm::vec3{-.5f,  .5f, 0.0f}, glm::vec3{1.0f, 1.0f, 0.0f}, glm::vec2(0.0f, 1.0f) }
-	};
+std::vector<Vertex> vertices =
+{
+	{glm::vec3{-0.5f, -0.5f, -0.5f}, glm::vec2{0.0f, 0.0f}},
+	 {glm::vec3{0.5f, -0.5f, -0.5f}, glm::vec2{1.0f, 0.0f}},
+	 {glm::vec3{0.5f,  0.5f, -0.5f}, glm::vec2{1.0f, 1.0f}},
+	 {glm::vec3{0.5f,  0.5f, -0.5f}, glm::vec2{1.0f, 1.0f}},
+	{glm::vec3{-0.5f,  0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f}, glm::vec2{0.0f, 0.0f}},
 
-	std::vector<unsigned int> indices =
-	{
-		0, 1, 3,
-		1, 2, 3
-	};
+	{glm::vec3{-0.5f, -0.5f,  0.5f}, glm::vec2{0.0f, 0.0f}},
+	 {glm::vec3{0.5f, -0.5f,  0.5f}, glm::vec2{1.0f, 0.0f}},
+	 {glm::vec3{0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 1.0f}},
+	 {glm::vec3{0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 1.0f}},
+	{glm::vec3{-0.5f,  0.5f,  0.5f}, glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f,  0.5f}, glm::vec2{0.0f, 0.0f}},
+
+	{glm::vec3{-0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 0.0f}},
+	{glm::vec3{-0.5f,  0.5f, -0.5f}, glm::vec2{1.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f}, glm::vec2{0.0f, 1.0f} },
+	{glm::vec3{-0.5f, -0.5f,  0.5f}, glm::vec2{0.0f, 0.0f}},
+	{glm::vec3{-0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 0.0f}},
+
+	{glm::vec3{0.5f,  0.5f,  0.5f},   glm::vec2{1.0f, 0.0f}},
+	{glm::vec3{0.5f,  0.5f, -0.5f},  glm::vec2{1.0f, 1.0f}},
+	{glm::vec3{0.5f, -0.5f, -0.5f},  glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{0.5f, -0.5f, -0.5f},  glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{ 0.5f, -0.5f,  0.5f}, glm::vec2{0.0f, 0.0f}},
+	{glm::vec3{ 0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 0.0f}},
+
+	{glm::vec3{-0.5f, -0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{ 0.5f, -0.5f, -0.5f}, glm::vec2{1.0f, 1.0f}},
+	{glm::vec3{0.5f, -0.5f,  0.5f},  glm::vec2{1.0f, 0.0f}},
+	{glm::vec3{0.5f, -0.5f,  0.5f},  glm::vec2{1.0f, 0.0f}},
+	{glm::vec3{-0.5f, -0.5f,  0.5f}, glm::vec2{0.0f, 0.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}},
+
+	{glm::vec3{-0.5f,  0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}},
+	{glm::vec3{ 0.5f,  0.5f, -0.5f}, glm::vec2{1.0f, 1.0f}},
+	{glm::vec3{ 0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 0.0f}},
+	{glm::vec3{ 0.5f,  0.5f,  0.5f}, glm::vec2{1.0f, 0.0f}},
+	{glm::vec3{-0.5f,  0.5f,  0.5f}, glm::vec2{0.0f, 0.0f}},
+	{glm::vec3{-0.5f,  0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}}
+};
+
+std::vector<unsigned int> indices = { };
+
+cubePositions[0] = glm::vec3(0.0f, 0.0f, 0.0f);
+cubePositions[1] = glm::vec3(2.0f, 5.0f, -15.0f);
+	cubePositions[2] = glm::vec3(-1.5f, -2.2f, -2.5f);
+	cubePositions[3] = glm::vec3(-3.8f, -2.0f, -12.3f);
+	cubePositions[4] = glm::vec3(2.4f, -0.4f, -3.5f);
+	cubePositions[5] = glm::vec3(-1.7f, 3.0f, -7.5f);
+	cubePositions[6] = glm::vec3(1.3f, -2.0f, -2.5f);
+	cubePositions[7] = glm::vec3(1.5f, 2.0f, -2.5f);
+	cubePositions[8] = glm::vec3(1.5f, 0.2f, -1.5f);
+	cubePositions[9] = glm::vec3(-1.3f, 1.0f, -1.5f);
 
 	Window = GLWindow{ 4, 6, 3840, 2160, "GameWindow" };
 	Window.SetBackGroundColor(glm::vec3{ 0.0f, 0.1f, 0.2f });
@@ -27,9 +73,12 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 
 	texture = Texture("Assets/container.jpg");
 	texture2 = Texture("Assets/alefgardfull4KTest.bmp");
+	texture3 = Texture(3840, 2160);
 
 	mesh = Mesh(vertices, indices, GraphicsManager);
 	mesh.SetTextureID(texture2.GetTextureID());
+
+	glCopyImageSubData(texture2.GetTextureID(), GL_TEXTURE_2D, 0, 3840, 2160, 0, texture3.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, 3840, 2160, 1);
 
 	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
 	glUniform1i(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "texture1"), 0);
@@ -56,13 +105,16 @@ void Game::ProcessInput()
 		mesh.SetTextureID(texture.GetTextureID());
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_5) == GLFW_PRESS)
 		mesh.SetTextureID(texture2.GetTextureID());
+	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_6) == GLFW_PRESS)
+		mesh.SetTextureID(texture3.GetTextureID());
 }
 
 void Game::ProcessMouse()
 {
-	glfwGetCursorPos(Window.GetWindow(), &MouseXPos, &MouseYPos);
 	if (glfwGetMouseButton(Window.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 	{
+		glfwGetCursorPos(Window.GetWindow(), &MouseXPos, &MouseYPos);
+
 		if (FirstMouse)
 		{
 			LastX = MouseXPos;
@@ -97,7 +149,28 @@ void Game::MainLoop()
 
 void Game::Update()
 {
+
+	glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 projection = glm::mat4(1.0f);
+	projection = glm::perspective(glm::radians(45.0f), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+	glUniformMatrix4fv(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "projection"), 1, GL_FALSE, &projection[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "view"), 1, GL_FALSE, &view[0][0]);
+
 	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
+
+	for (unsigned int i = 0; i < 10; i++)
+	{
+		// calculate the model matrix for each object and pass it to shader before drawing
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, cubePositions[i]);
+		float angle = 20.0f * i;
+		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+		glUniformMatrix4fv(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "model"), 1, GL_FALSE, &model[0][0]);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 	mesh.Update(GraphicsManager);
 }
 

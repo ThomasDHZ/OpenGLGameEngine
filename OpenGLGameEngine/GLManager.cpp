@@ -21,16 +21,16 @@ void GLManager::BindShaderProgram(unsigned int VertexShader, unsigned int Fragme
 	int success;
 	char infoLog[512];
 
-	ShaderProgramID = glCreateProgram();
-	glAttachShader(ShaderProgramID, VertexShader);
-	glAttachShader(ShaderProgramID, FragmentShader);
+	BoundShaderProgramID = glCreateProgram();
+	glAttachShader(BoundShaderProgramID, VertexShader);
+	glAttachShader(BoundShaderProgramID, FragmentShader);
 
-	glLinkProgram(ShaderProgramID);
+	glLinkProgram(BoundShaderProgramID);
 
-	glGetProgramiv(ShaderProgramID, GL_LINK_STATUS, &success);
+	glGetProgramiv(BoundShaderProgramID, GL_LINK_STATUS, &success);
 	if (!success) 
 	{
-		glGetProgramInfoLog(ShaderProgramID, 512, NULL, infoLog);
+		glGetProgramInfoLog(BoundShaderProgramID, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 	}
 
@@ -50,7 +50,7 @@ void GLManager::CompileFragmentShader(const char* FileName)
 
 void GLManager::UseShaderProgram(unsigned int ShaderProgram)
 {
-	glUseProgram(ShaderProgramID);
+	glUseProgram(BoundShaderProgramID);
 }
 
 unsigned int GLManager::GetVAOID()
@@ -70,5 +70,5 @@ unsigned int GLManager::GetFragmentShader()
 
 unsigned int GLManager::GetShaderProgram()
 {
-	return ShaderProgramID;
+	return BoundShaderProgramID;
 }
