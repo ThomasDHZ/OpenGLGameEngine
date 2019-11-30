@@ -51,10 +51,10 @@ std::vector<Vertex> vertices =
 	{glm::vec3{-0.5f,  0.5f, -0.5f}, glm::vec2{0.0f, 1.0f}}
 };
 
-std::vector<unsigned int> indices = { };
+	std::vector<unsigned int> indices = { };
 
-cubePositions[0] = glm::vec3(0.0f, 0.0f, 0.0f);
-cubePositions[1] = glm::vec3(2.0f, 5.0f, -15.0f);
+	cubePositions[0] = glm::vec3(0.0f, 0.0f, 0.0f);
+	cubePositions[1] = glm::vec3(2.0f, 5.0f, -15.0f);
 	cubePositions[2] = glm::vec3(-1.5f, -2.2f, -2.5f);
 	cubePositions[3] = glm::vec3(-3.8f, -2.0f, -12.3f);
 	cubePositions[4] = glm::vec3(2.4f, -0.4f, -3.5f);
@@ -80,8 +80,13 @@ cubePositions[1] = glm::vec3(2.0f, 5.0f, -15.0f);
 
 	glCopyImageSubData(texture2.GetTextureID(), GL_TEXTURE_2D, 0, 3840, 2160, 0, texture3.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, 3840, 2160, 1);
 
+	WorldProjection = glm::perspective(glm::radians(45.0f), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
+	WorldView = glm::translate(WorldView, glm::vec3(0.0f, 0.0f, -3.0f));
+
 	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
 	glUniform1i(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "texture1"), 0);
+	GraphicsManager.SetShaderProjectionValue(WorldProjection);
+	GraphicsManager.SetShaderViewnValue(WorldView);
 }
 
 Game::~Game()
@@ -149,15 +154,6 @@ void Game::MainLoop()
 
 void Game::Update()
 {
-
-	glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-	glm::mat4 projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
-	glUniformMatrix4fv(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "projection"), 1, GL_FALSE, &projection[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "view"), 1, GL_FALSE, &view[0][0]);
-
 	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
 
 	for (unsigned int i = 0; i < 10; i++)
@@ -167,7 +163,7 @@ void Game::Update()
 		model = glm::translate(model, cubePositions[i]);
 		float angle = 20.0f * i;
 		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		glUniformMatrix4fv(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "model"), 1, GL_FALSE, &model[0][0]);
+		GraphicsManager.SetShaderModelValue(model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}

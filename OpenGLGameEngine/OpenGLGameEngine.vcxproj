@@ -139,7 +139,7 @@
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="GLManager.cpp" />
+    <ClCompile Include="GLGraphicsManager.cpp" />
     <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -155,7 +155,7 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GLManager.h" />
+    <ClInclude Include="GLGraphicsManager.h" />
     <ClInclude Include="GLWindow.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="model.h" />
