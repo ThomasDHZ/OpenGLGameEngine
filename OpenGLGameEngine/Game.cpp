@@ -69,7 +69,7 @@ std::vector<Vertex> vertices =
 
 	GraphicsManager.CompileVertexShader("Shader.vs");
 	GraphicsManager.CompileFragmentShader("Shader.fs");
-	GraphicsManager.BindShaderProgram(GraphicsManager.GetVertexShader(), GraphicsManager.GetFragmentShader());
+	GraphicsManager.BindShaderProgram(GraphicsManager.GetVertexShader(), GraphicsManager.GetFragmentShader(), ShaderType::sMain);
 
 	texture = Texture("Assets/container.jpg");
 	texture2 = Texture("Assets/alefgardfull4KTest.bmp");
@@ -85,8 +85,10 @@ std::vector<Vertex> vertices =
 
 	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
 	glUniform1i(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "texture1"), 0);
-	GraphicsManager.SetShaderProjectionValue(WorldProjection);
-	GraphicsManager.SetShaderViewnValue(WorldView);
+
+	auto test = GraphicsManager.GetMainShader();
+	test->SetShaderProjectionValue(WorldProjection);
+	GraphicsManager.GetMainShader()->SetShaderViewnValue(WorldView);
 }
 
 Game::~Game()
@@ -141,10 +143,6 @@ void Game::ProcessMouse()
 
 void Game::MainLoop()
 {
-	float currentFrame = glfwGetTime();
-	DeltaTime = currentFrame - LastFrame;
-	LastFrame = currentFrame;
-
 	Window.StartFrame();
 	ProcessInput();
 	ProcessMouse();
@@ -155,7 +153,6 @@ void Game::MainLoop()
 void Game::Update()
 {
 	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
-
 	for (unsigned int i = 0; i < 10; i++)
 	{
 		// calculate the model matrix for each object and pass it to shader before drawing
@@ -163,11 +160,10 @@ void Game::Update()
 		model = glm::translate(model, cubePositions[i]);
 		float angle = 20.0f * i;
 		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		GraphicsManager.SetShaderModelValue(model);
 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		mesh.Update(GraphicsManager, model);
 	}
-	mesh.Update(GraphicsManager);
+
 }
 
 

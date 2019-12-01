@@ -57,14 +57,14 @@ Mesh& Mesh::operator=(const Mesh& rhs)
 	return *this;
 }
 
-void Mesh::Update(GLGraphicsManager& manager)
+void Mesh::Update(GLGraphicsManager& manager, glm::mat4 modelMatrix)
 {
-	ModelMatrix = glm::mat4(1.0f);
-	ModelMatrix = glm::translate(ModelMatrix, Position);
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelMatrix = glm::scale(ModelMatrix, Scale);
+	//ModelMatrix = glm::mat4(1.0f);
+	//ModelMatrix = glm::translate(ModelMatrix, Position);
+	//ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	//ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	//ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	//ModelMatrix = glm::scale(ModelMatrix, Scale);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, TextureID);
@@ -74,7 +74,7 @@ void Mesh::Update(GLGraphicsManager& manager)
 		manager.BindVAO(VAO);
 	}
 
-	manager.SetShaderModelValue(ModelMatrix);
+	manager.GetMainShader()->SetShaderModelValue(modelMatrix);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }

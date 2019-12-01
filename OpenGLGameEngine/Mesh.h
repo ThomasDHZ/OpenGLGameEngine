@@ -25,7 +25,7 @@ public:
 
 	Mesh& operator=(const Mesh& rhs);
 
-	void Update(GLGraphicsManager& manager);
+	void Update(GLGraphicsManager& manager, glm::mat4 modelMatrix);
 	void SetTextureID(unsigned int textureID);
 	void DeleteBuffers();
 

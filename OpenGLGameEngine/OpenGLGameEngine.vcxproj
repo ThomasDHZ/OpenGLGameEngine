@@ -142,7 +142,10 @@
     <ClCompile Include="GLGraphicsManager.cpp" />
     <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainShader.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ScreenBufferShader.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -157,25 +160,17 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GLGraphicsManager.h" />
     <ClInclude Include="GLWindow.h" />
+    <ClInclude Include="MainShader.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="ScreenBufferShader.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderCompiler.h" />
+    <ClInclude Include="ShaderTypeEnum.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="1.advanced_lighting.fs" />
-    <None Include="1.advanced_lighting.vs" />
-    <None Include="4.2.texture.fs" />
-    <None Include="4.2.texture.vs" />
-    <None Include="5.1.framebuffers.fs" />
-    <None Include="5.1.framebuffers.vs" />
-    <None Include="5.1.framebuffers_screen.fs" />
-    <None Include="5.1.framebuffers_screen.vs" />
-    <None Include="6.hdr.fs" />
-    <None Include="6.hdr.vs" />
-    <None Include="6.lighting.fs" />
-    <None Include="6.lighting.vs" />
     <None Include="Shader.fs" />
     <None Include="Shader.vs" />
   </ItemGroup>

@@ -7,8 +7,6 @@
 class Game
 {
 private:
-	float DeltaTime = 0.0f;
-	float LastFrame = 0.0f;
 	float LastX = 1000 / 2.0f;
 	float LastY = 1000 / 2.0f;
 	double MouseXPos;

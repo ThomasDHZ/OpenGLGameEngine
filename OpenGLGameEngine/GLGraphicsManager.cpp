@@ -10,63 +10,18 @@ GLGraphicsManager::GLGraphicsManager()
 	compiler = ShaderCompiler();
 }
 
-void GLGraphicsManager::SetShaderBoolValue(const std::string& name, bool value) const
-{
-	glUniform1i(glGetUniformLocation(BoundShaderProgramID, name.c_str()), (int)value);
-}
-
-void GLGraphicsManager::SetShaderIntValue(const std::string& name, int value) const
-{
-	glUniform1i(glGetUniformLocation(BoundShaderProgramID, name.c_str()), value);
-}
-
-void GLGraphicsManager::SetShaderFloatValue(const std::string& name, float value) const
-{
-	glUniform1f(glGetUniformLocation(BoundShaderProgramID, name.c_str()), value);
-}
-
-void GLGraphicsManager::SetShaderVec2Value(const std::string& name, float x, float y) const
-{
-	glUniform2f(glGetUniformLocation(BoundShaderProgramID, name.c_str()), x, y);
-}
-
-void GLGraphicsManager::SetShaderVec3Value(const std::string& name, float x, float y, float z) const
-{
-	glUniform3f(glGetUniformLocation(BoundShaderProgramID, name.c_str()), x, y, z);
-}
-
-void GLGraphicsManager::SetShaderVec4Value(const std::string& name, float x, float y, float z, float w) const
-{
-	glUniform4f(glGetUniformLocation(BoundShaderProgramID, name.c_str()), x, y, z, w);
-}
-
-void GLGraphicsManager::SetShaderMat2Value(const std::string& name, const glm::mat2& mat) const
-{
-	glUniformMatrix2fv(glGetUniformLocation(BoundShaderProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
-}
-
-void GLGraphicsManager::SetShaderMat3Value(const std::string& name, const glm::mat3& mat) const
-{
-	glUniformMatrix3fv(glGetUniformLocation(BoundShaderProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
-}
-
-void GLGraphicsManager::SetShaderMat4Value(const std::string& name, const glm::mat4& mat) const
-{
-	glUniformMatrix4fv(glGetUniformLocation(BoundShaderProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
-}
-
 void GLGraphicsManager::BindVAO(unsigned int VAO)
 {
 	BoundVertexArrayObjectID = VAO;
 	glBindVertexArray(VAO);
 }
 
-void GLGraphicsManager::BindShaderProgram(unsigned int VertexShader, unsigned int FragmentShader)
+void GLGraphicsManager::BindShaderProgram(unsigned int VertexShader, unsigned int FragmentShader, ShaderType shaderType)
 {
 	int success;
 	char infoLog[512];
 
-	BoundShaderProgramID = glCreateProgram();
+	unsigned int NewShaderID = glCreateProgram();
 	glAttachShader(BoundShaderProgramID, VertexShader);
 	glAttachShader(BoundShaderProgramID, FragmentShader);
 
@@ -78,6 +33,8 @@ void GLGraphicsManager::BindShaderProgram(unsigned int VertexShader, unsigned in
 		glGetProgramInfoLog(BoundShaderProgramID, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 	}
+
+	ShaderList.emplace_back(Shader(NewShaderID, shaderType));
 
 	glDeleteShader(VertexShader);
 	glDeleteShader(FragmentShader);
