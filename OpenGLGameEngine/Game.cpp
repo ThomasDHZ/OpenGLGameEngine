@@ -83,10 +83,10 @@ std::vector<Vertex> vertices =
 	WorldProjection = glm::perspective(glm::radians(45.0f), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
 	WorldView = glm::translate(WorldView, glm::vec3(0.0f, 0.0f, -3.0f));
 
-	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
-	glUniform1i(glGetUniformLocation(GraphicsManager.GetShaderProgram(), "texture1"), 0);
-	GraphicsManager.SetShaderProjectionValue(WorldProjection);
-	GraphicsManager.SetShaderViewnValue(WorldView);
+	GraphicsManager.UseShaderProgram(GraphicsManager.GetMainShader()->GetShaderID());
+	glUniform1i(glGetUniformLocation(GraphicsManager.GetMainShader()->GetShaderID(), "texture1"), 0);
+	GraphicsManager.GetMainShader()->SetShaderProjectionValue(WorldProjection);
+	GraphicsManager.GetMainShader()->SetShaderViewnValue(WorldView);
 }
 
 Game::~Game()
@@ -154,7 +154,7 @@ void Game::MainLoop()
 
 void Game::Update()
 {
-	GraphicsManager.UseShaderProgram(GraphicsManager.GetShaderProgram());
+	GraphicsManager.UseShaderProgram(GraphicsManager.GetMainShader()->GetShaderID());
 
 	for (unsigned int i = 0; i < 10; i++)
 	{
@@ -163,7 +163,7 @@ void Game::Update()
 		model = glm::translate(model, cubePositions[i]);
 		float angle = 20.0f * i;
 		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		GraphicsManager.SetShaderModelValue(model);
+		GraphicsManager.GetMainShader()->SetShaderModelValue(model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}

@@ -54,6 +54,15 @@
     <ClCompile Include="GLGraphicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenBufferShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Desktop\New folder (5)\OpenGLEngine\Include\Soil\stb_image.h">
@@ -98,48 +107,24 @@
     <ClInclude Include="GLGraphicsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MainShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenBufferShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader.vs">
       <Filter>Shader Files</Filter>
     </None>
     <None Include="Shader.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="1.advanced_lighting.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="1.advanced_lighting.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="6.lighting.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="6.lighting.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="6.hdr.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="6.hdr.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers_screen.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers_screen.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="4.2.texture.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="4.2.texture.fs">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

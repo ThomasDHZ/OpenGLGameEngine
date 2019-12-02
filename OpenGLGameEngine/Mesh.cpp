@@ -74,7 +74,7 @@ void Mesh::Update(GLGraphicsManager& manager)
 		manager.BindVAO(VAO);
 	}
 
-	manager.SetShaderModelValue(ModelMatrix);
+	manager.GetMainShader()->SetShaderModelValue(ModelMatrix);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
