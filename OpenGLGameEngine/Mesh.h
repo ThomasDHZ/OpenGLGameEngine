@@ -2,6 +2,7 @@
 #include <vector>
 #include "Vertex.h"
 #include "GLGraphicsManager.h"
+#include "shader_m.h"
 
 class Mesh
 {
@@ -20,12 +21,13 @@ private:
 
 public:
 	Mesh();
+	Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList);
 	Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList, GLGraphicsManager& manager);
 	~Mesh();
 
 	Mesh& operator=(const Mesh& rhs);
 
-	void Update(GLGraphicsManager& manager);
+	void Update(unsigned int TextureIDz, glm::mat4 model, Shader2 shader);
 	void SetTextureID(unsigned int textureID);
 	void DeleteBuffers();
 
@@ -39,5 +41,8 @@ public:
 	void SetRotationX(const float x);
 	void SetRotationY(const float y);
 	void SetRotationZ(const float z);
+
+	unsigned int GetVAO() { return VAO; }
+	unsigned int GetVBO() { return VBO; }
 };
 

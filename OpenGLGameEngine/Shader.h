@@ -11,6 +11,8 @@ private:
 	ShaderType Type;
 
 protected:
+	void InitializeTextureSampler(const std::string TextureValueName, unsigned int TextureSamplerLocation) const;
+
 	void SetShaderBoolValue(const std::string& name, bool value) const;
 	void SetShaderIntValue(const std::string& name, int value) const;
 	void SetShaderFloatValue(const std::string& name, float value) const;

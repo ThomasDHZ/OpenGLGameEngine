@@ -11,6 +11,22 @@ Mesh::Mesh()
 	EBO = 0;
 }
 
+Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList)
+{
+	VertexCount = VertexList.size();
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, VertexCount * sizeof(Vertex), &VertexList[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList, GLGraphicsManager& manager)
 {
 	ModelMatrix = glm::mat4(1.0f);
@@ -22,25 +38,14 @@ Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	//glGenBuffers(1, &EBO);
-
-	manager.BindVAO(VAO);
-
+	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, VertexCount * sizeof(Vertex), &VertexList[0], GL_STATIC_DRAW);
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(IndiceList), &IndiceList[0], GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexList), &VertexList, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
-
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	manager.BindVAO(0);
 }
 
 Mesh::~Mesh()
@@ -57,26 +62,14 @@ Mesh& Mesh::operator=(const Mesh& rhs)
 	return *this;
 }
 
-void Mesh::Update(GLGraphicsManager& manager)
+void Mesh::Update(unsigned int TextureIDz, glm::mat4 model, Shader2 shader)
 {
-	ModelMatrix = glm::mat4(1.0f);
-	ModelMatrix = glm::translate(ModelMatrix, Position);
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelMatrix = glm::scale(ModelMatrix, Scale);
-
+	glBindVertexArray(VAO);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, TextureID);
+	glBindTexture(GL_TEXTURE_2D, TextureIDz);
 
-	if (manager.GetVAOID() != VAO)
-	{
-		manager.BindVAO(VAO);
-	}
-
-	manager.GetMainShader()->SetShaderModelValue(ModelMatrix);
-
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
 }
 
 void Mesh::SetTextureID(unsigned int textureID)

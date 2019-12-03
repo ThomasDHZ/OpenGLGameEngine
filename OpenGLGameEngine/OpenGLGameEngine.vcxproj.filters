@@ -57,10 +57,10 @@
     <ClCompile Include="MainShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenBufferShader.cpp">
+    <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="FrameBufferShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,13 +110,16 @@
     <ClInclude Include="MainShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenBufferShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,6 +128,18 @@
       <Filter>Shader Files</Filter>
     </None>
     <None Include="Shader.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="FrameBufferShader.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="FrameBufferShader.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="5.1.framebuffers.vs">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

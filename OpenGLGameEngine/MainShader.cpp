@@ -6,6 +6,7 @@ MainShader::MainShader() : Shader()
 
 MainShader::MainShader(unsigned int ShaderID, ShaderType shaderType) : Shader(ShaderID, shaderType)
 {
+	InitializeTextureSampler("texture1", 0);
 }
 
 MainShader::~MainShader()

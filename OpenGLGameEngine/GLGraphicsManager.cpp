@@ -11,6 +11,19 @@ GLGraphicsManager::GLGraphicsManager()
 	compiler = ShaderCompiler();
 }
 
+GLGraphicsManager::~GLGraphicsManager()
+{
+	for (Texture texture : TextureList)
+	{
+		texture.ReleaseTexture();
+	}
+}
+
+void GLGraphicsManager::AddTexture(Texture texture)
+{
+	TextureList.emplace_back(texture);
+}
+
 void GLGraphicsManager::BindVAO(unsigned int VAO)
 {
 	BoundVertexArrayObjectID = VAO;

@@ -34,6 +34,11 @@ ShaderType Shader::GetShaderType()
 	return Type;
 }
 
+void Shader::InitializeTextureSampler(const std::string TextureValueName, unsigned int TextureSamplerLocation) const
+{
+	SetShaderIntValue(TextureValueName, TextureSamplerLocation);
+}
+
 void Shader::SetShaderBoolValue(const std::string& name, bool value) const
 {
 	glUniform1i(glGetUniformLocation(ShaderID, name.c_str()), (int)value);

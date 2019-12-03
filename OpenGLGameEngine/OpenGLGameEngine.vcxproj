@@ -144,7 +144,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainShader.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="ScreenBufferShader.cpp" />
+    <ClCompile Include="FrameBufferShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -163,14 +163,19 @@
     <ClInclude Include="MainShader.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="model.h" />
-    <ClInclude Include="ScreenBufferShader.h" />
+    <ClInclude Include="FrameBufferShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="ShaderTypeEnum.h" />
+    <ClInclude Include="shader_m.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="5.1.framebuffers.fs" />
+    <None Include="5.1.framebuffers.vs" />
+    <None Include="FrameBufferShader.fs" />
+    <None Include="FrameBufferShader.vs" />
     <None Include="Shader.fs" />
     <None Include="Shader.vs" />
   </ItemGroup>

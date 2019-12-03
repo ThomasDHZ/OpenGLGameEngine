@@ -3,6 +3,7 @@
 #include <FileSystem.h>
 #include <glm\ext\matrix_transform.hpp>
 #include <glm\ext\matrix_clip_space.hpp>
+#include "shader_m.h"
 
 Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName)
 {
@@ -67,32 +68,41 @@ std::vector<Vertex> vertices =
 	Window = GLWindow{ 4, 6, 3840, 2160, "GameWindow" };
 	Window.SetBackGroundColor(glm::vec3{ 0.0f, 0.1f, 0.2f });
 
+
+	Shader2 shader("Shader.vs", "Shader.fs");
+	Shader2 screenShader("FrameBufferShader.vs", "FrameBufferShader.fs");
+
 	GraphicsManager.CompileVertexShader("Shader.vs");
 	GraphicsManager.CompileFragmentShader("Shader.fs");
-	GraphicsManager.BindShaderProgram(GraphicsManager.GetVertexShader(), GraphicsManager.GetFragmentShader());
 
-	texture = Texture("Assets/container.jpg");
-	texture2 = Texture("Assets/alefgardfull4KTest.bmp");
-	texture3 = Texture(3840, 2160);
+	GraphicsManager.BindShaderProgram(GraphicsManager.GetVertexShader(), GraphicsManager.GetFragmentShader());
+	GraphicsManager.AddTexture(Texture("Assets/container.jpg"));
+	GraphicsManager.AddTexture(Texture("Assets/alefgardfull4KTest.bmp"));
+	GraphicsManager.AddTexture(Texture(3840, 2160));
 
 	mesh = Mesh(vertices, indices, GraphicsManager);
-	mesh.SetTextureID(texture2.GetTextureID());
+	mesh.SetTextureID(GraphicsManager.GetTexture(1).GetTextureID());
 
-	glCopyImageSubData(texture2.GetTextureID(), GL_TEXTURE_2D, 0, 3840, 2160, 0, texture3.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, 3840, 2160, 1);
+	//glCopyImageSubData(GraphicsManager.GetTexture(1).GetTextureID(), GL_TEXTURE_2D, 0, 3840, 2160, 0, GraphicsManager.GetTexture(2).GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, 3840, 2160, 1);
 
 	WorldProjection = glm::perspective(glm::radians(45.0f), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
 	WorldView = glm::translate(WorldView, glm::vec3(0.0f, 0.0f, -3.0f));
 
-	GraphicsManager.UseShaderProgram(GraphicsManager.GetMainShader()->GetShaderID());
-	glUniform1i(glGetUniformLocation(GraphicsManager.GetMainShader()->GetShaderID(), "texture1"), 0);
+	GraphicsManager.UseShaderProgram(shader.ID);
 	GraphicsManager.GetMainShader()->SetShaderProjectionValue(WorldProjection);
 	GraphicsManager.GetMainShader()->SetShaderViewnValue(WorldView);
+
+	//GraphicsManager.CompileVertexShader("FrameBufferShader.vs");
+	//GraphicsManager.CompileFragmentShader("FrameBufferShader.fs");
+	//GraphicsManager.BindShaderProgram(GraphicsManager.GetVertexShader(), GraphicsManager.GetFragmentShader());
+	//GraphicsManager.UseShaderProgram(GraphicsManager.GetFrameBufferShader()->GetShaderID());
+
+	fBuffer.InitializeFrameBuffer();
 }
 
 Game::~Game()
 {
 	mesh.DeleteBuffers();
-	texture.ReleaseTexture();
 	Window.ShutDownGLWindow();
 }
 
@@ -107,11 +117,11 @@ void Game::ProcessInput()
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_3) == GLFW_PRESS)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_4) == GLFW_PRESS)
-		mesh.SetTextureID(texture.GetTextureID());
+		mesh.SetTextureID(GraphicsManager.GetTexture(0).GetTextureID());
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_5) == GLFW_PRESS)
-		mesh.SetTextureID(texture2.GetTextureID());
+		mesh.SetTextureID(GraphicsManager.GetTexture(1).GetTextureID());
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_6) == GLFW_PRESS)
-		mesh.SetTextureID(texture3.GetTextureID());
+		mesh.SetTextureID(GraphicsManager.GetTexture(2).GetTextureID());
 }
 
 void Game::ProcessMouse()
@@ -148,13 +158,15 @@ void Game::MainLoop()
 	Window.StartFrame();
 	ProcessInput();
 	ProcessMouse();
+	fBuffer.FrameBufferStart();
 	Update();
+	//fBuffer.FrameBufferEnd();
 	Window.EndFrame();
 }
 
 void Game::Update()
 {
-	GraphicsManager.UseShaderProgram(GraphicsManager.GetMainShader()->GetShaderID());
+	
 
 	for (unsigned int i = 0; i < 10; i++)
 	{
@@ -167,7 +179,8 @@ void Game::Update()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
-	mesh.Update(GraphicsManager);
+	//mesh.Update(GraphicsManager);
+
 }
 
 
