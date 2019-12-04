@@ -60,10 +60,16 @@ Mesh::~Mesh()
 Mesh& Mesh::operator=(const Mesh& rhs)
 {
 	VertexCount = rhs.VertexCount;
+	IndiceCount = rhs.IndiceCount;
+	TextureID = rhs.TextureID;
 	VAO = rhs.VAO;
 	VBO = rhs.VBO;
 	EBO = rhs.EBO;
-
+	
+	Position = rhs.Position;
+	Rotation = rhs.Rotation;
+	Scale = rhs.Scale;
+	ModelMatrix = rhs.ModelMatrix;
 	return *this;
 }
 
