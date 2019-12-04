@@ -168,15 +168,14 @@ int main()
 
 		for (int x = 0; x < 10; x++)
 		{
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePositions[x]);
-			float angle = 20.0f * x;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			cube.SetPosition(cubePositions[x]);
+			cube.SetRotation(glm::vec3(20.0f * x));
 			cube.Update(cubeTexture.GetTextureID(), model, shader);
 		}
 
-		glm::mat4 model2 = glm::mat4(1.0f);
-		plane.Update(floorTexture.GetTextureID(), model2, shader);
+		//glm::mat4 model2 = glm::mat4(1.0f);
+		//plane.SetModelMatrix(model2);
+		//plane.Update(floorTexture.GetTextureID(), model2, shader);
 
 	
 

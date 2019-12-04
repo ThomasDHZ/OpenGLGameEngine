@@ -15,6 +15,11 @@ Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int
 {
 	VertexCount = VertexList.size();
 
+	ModelMatrix = glm::mat4(1.0f);
+	Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	Scale = glm::vec3(1.0f);
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);
@@ -64,11 +69,18 @@ Mesh& Mesh::operator=(const Mesh& rhs)
 
 void Mesh::Update(unsigned int TextureIDz, glm::mat4 model, Shader2 shader)
 {
+	ModelMatrix = glm::mat4(1.0f);
+	ModelMatrix = glm::translate(ModelMatrix, Position);
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	ModelMatrix = glm::scale(ModelMatrix, Scale);
+
 	glBindVertexArray(VAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, TextureIDz);
 
-	shader.setMat4("model", model);
+	shader.setMat4("model", ModelMatrix);
 	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
 }
 
