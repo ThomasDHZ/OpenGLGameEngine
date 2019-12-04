@@ -15,6 +15,10 @@ class Shader2
 {
 public:
 	unsigned int ID;
+	Shader2()
+	{
+
+	}
 	// constructor generates the shader on the fly
 	// ------------------------------------------------------------------------
 	Shader2(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr)
@@ -97,6 +101,11 @@ public:
 		if (geometryPath != nullptr)
 			glDeleteShader(geometry);
 
+	}
+	Shader2& operator=(const Shader2& rhs)
+	{
+		ID = rhs.ID;
+		return*this;
 	}
 	// activate the shader
 	// ------------------------------------------------------------------------

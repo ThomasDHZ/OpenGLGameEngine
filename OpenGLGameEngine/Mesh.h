@@ -27,7 +27,7 @@ public:
 
 	Mesh& operator=(const Mesh& rhs);
 
-	void Update(unsigned int TextureIDz, glm::mat4 model, Shader2 shader);
+	void Update(unsigned int TextureIDz, Shader2 shader);
 	void SetTextureID(unsigned int textureID);
 	void DeleteBuffers();
 

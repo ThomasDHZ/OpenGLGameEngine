@@ -61,6 +61,21 @@ public:
 		updateCameraVectors();
 	}
 
+	Camera& operator=(const Camera& rhs)
+	{
+		Position = rhs.Position;
+		Front = rhs.Front;
+		Up = rhs.Up;
+		Right = rhs.Right;
+		WorldUp = rhs.WorldUp;
+		Yaw = rhs.Yaw;
+		Pitch = rhs.Pitch;
+		MovementSpeed = rhs.MovementSpeed;
+		MouseSensitivity = rhs.MouseSensitivity;
+		Zoom = rhs.Zoom;
+
+		return*this;
+	}
 	// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix()
 	{

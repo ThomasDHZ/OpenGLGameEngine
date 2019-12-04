@@ -67,7 +67,7 @@ Mesh& Mesh::operator=(const Mesh& rhs)
 	return *this;
 }
 
-void Mesh::Update(unsigned int TextureIDz, glm::mat4 model, Shader2 shader)
+void Mesh::Update(unsigned int TextureIDz, Shader2 shader)
 {
 	ModelMatrix = glm::mat4(1.0f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
