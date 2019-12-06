@@ -5,12 +5,12 @@
 #include "Texture.h"
 #include "FrameBuffer.h"
 #include "camera.h"
+#include "Frame.h"
+#include "GameMode.h"
 
 class Game
 {
 private:
-	unsigned int SCR_WIDTH;
-	unsigned int SCR_HEIGHT;
 	float LastX;
 	float LastY;
 	float DeltaTime;
@@ -19,8 +19,13 @@ private:
 	double MouseYPos;
 	bool FirstMouse;
 
+	int OffsetX;
+	int OffsetY;
+
 	GLWindow Window;
 	Camera camera;
+
+	Frame frame;
 	FrameBuffer fBuffer;
 
 	Shader2 shader;
@@ -29,15 +34,17 @@ private:
 	Mesh plane;
 	Texture cubeTexture;
 	Texture floorTexture;
-
+	Texture textureFrame;
+	GameMode GameType;
 public:
-	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName);
+	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);
 	~Game();
 	void ProcessInput();
 	void ProcessMouse();
 	void UpdateProjectionView();
 	void MainLoop();
 	void Update();
+	void Update2D();
 
 	GLFWwindow* GetWindow() { return Window.GetWindow(); }
 };

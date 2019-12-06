@@ -10,9 +10,11 @@ Texture::Texture()
 {
 }
 
-Texture::Texture(unsigned int Width, unsigned int Height)
+Texture::Texture(unsigned int width, unsigned int height)
 {
-	Color* NewTexture = new Color[Width * Height];
+	Width = width;
+	Height = height;
+	ColorChannels = 3;
 
 	glGenTextures(1, &TextureID);
 	glBindTexture(GL_TEXTURE_2D, TextureID);
@@ -22,10 +24,7 @@ Texture::Texture(unsigned int Width, unsigned int Height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NewTexture);
-
-	delete[] NewTexture;
-	NewTexture = nullptr;
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 }
 
 Texture::Texture(char const* FilePath)

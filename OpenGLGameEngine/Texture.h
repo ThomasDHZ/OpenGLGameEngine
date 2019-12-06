@@ -9,7 +9,7 @@ private:
 
 public:
 	Texture();
-	Texture(unsigned int Width, unsigned int Height);
+	Texture(unsigned int width, unsigned int height);
 	Texture(char const* FilePath);
 	~Texture();
 
