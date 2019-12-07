@@ -4,7 +4,7 @@
 #include <glm\ext\matrix_transform.hpp>
 #include <glm\ext\matrix_clip_space.hpp>
 #include "shader_m.h"
-
+#include "../GLGraphics/testing.h"
 
 glm::vec3 cubePositions[] = {
 	glm::vec3(0.0f,  0.0f,  0.0f),
@@ -21,6 +21,8 @@ glm::vec3 cubePositions[] = {
 
 Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName)
 {
+	testing test = testing();
+	std::string a = test.GetWords();
 	std::vector<Vertex> vertices =
 	{
 		{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec2{ 0.0f, 0.0f}},
