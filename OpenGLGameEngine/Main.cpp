@@ -4,7 +4,7 @@
 int main()
 {
 
-	Game game = Game(4, 6, 1280, 720, GameMode::Mode2D, "GameWindow");
+	Game game = Game(4, 6, 3840, 2160, GameMode::Mode2D, "GameWindow");
 
 	while (!glfwWindowShouldClose(game.GetWindow()))
 	{
