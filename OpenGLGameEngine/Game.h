@@ -32,8 +32,12 @@ private:
 	Shader2 screenShader;
 	Mesh cube;
 	Mesh plane;
+	Mesh Windows;
+	Texture DQ1MapTexture;
 	Texture cubeTexture;
 	Texture floorTexture;
+	Texture grassTexture;
+	Texture windowTexture;
 	Texture textureFrame;
 	GameMode GameType;
 public:

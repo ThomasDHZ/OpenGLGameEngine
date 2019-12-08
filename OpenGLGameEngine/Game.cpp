@@ -5,6 +5,7 @@
 #include <glm\ext\matrix_clip_space.hpp>
 #include "shader_m.h"
 #include "../GLGraphics/testing.h"
+#include <map>
 
 glm::vec3 cubePositions[] = {
 	glm::vec3(0.0f,  0.0f,  0.0f),
@@ -18,6 +19,16 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(1.5f,  0.2f, -1.5f),
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
+
+std::vector<glm::vec3> windows
+{
+	glm::vec3(-1.5f, 0.0f, -0.48f),
+	glm::vec3(1.5f, 0.0f, 0.51f),
+	glm::vec3(0.0f, 0.0f, 0.7f),
+	glm::vec3(-0.3f, 0.0f, -2.3f),
+	glm::vec3(0.5f, 0.0f, -0.6f)
+};
+
 
 Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName)
 {
@@ -88,6 +99,18 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 		 1.0f,  1.0f,  1.0f, 1.0f
 	};
 
+	std::vector<Vertex> transparentVertices = 
+	{
+		// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+		{glm::vec3{0.0f,  0.5f,  0.0f},  glm::vec2{0.0f,  0.0f}},
+		{glm::vec3{0.0f, -0.5f,  0.0f},  glm::vec2{0.0f,  1.0f}},
+		{glm::vec3{1.0f, -0.5f,  0.0f},  glm::vec2{1.0f,  1.0f}},
+
+		{glm::vec3{0.0f,  0.5f,  0.0f},  glm::vec2{0.0f,  0.0f}},
+		{glm::vec3{1.0f, -0.5f,  0.0f},  glm::vec2{1.0f,  1.0f}},
+		{glm::vec3{1.0f,  0.5f,  0.0f},  glm::vec2{1.0f,  0.0f}}
+	};
+
 	Window = GLWindow{ 4, 6, width, height, "GameWindow" };
 	Window.SetBackGroundColor(glm::vec3{ 0.0f, 0.1f, 0.2f });
 
@@ -113,9 +136,13 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 
 	cube = Mesh(vertices, indices);
 	plane = Mesh(plainVert, indices);
+	Windows = Mesh(transparentVertices, indices);
 
-	cubeTexture = Texture("Assets/alefgardfull4KTest.bmp");
+	cubeTexture = Texture("Assets/marble.jpg");
 	floorTexture = Texture("Assets/metal.png");
+	grassTexture = Texture("Assets/grass.png");
+	windowTexture = Texture("Assets/window.png");
+	DQ1MapTexture = Texture("Assets/alefgardfull4KTest.bmp");
 	textureFrame = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 
 	shader.use();
@@ -229,14 +256,32 @@ void Game::MainLoop()
 
 void Game::Update()
 {
+	glEnable(GL_DEPTH_TEST | GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glCopyImageSubData(cubeTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, cubeTexture.GetHeight() - textureFrame.GetHeight() + OffsetY, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
 	
-	shader.use();
-	for (int x = 0; x < 10; x++)
+	std::map<float, glm::vec3> sorted;
+	for (unsigned int i = 0; i < windows.size(); i++)
 	{
-		cube.SetPosition(cubePositions[x]);
-		cube.SetRotation(glm::vec3(20.0f * x));
-		cube.Update(textureFrame.GetTextureID(), shader);
+		float distance = glm::length(camera.Position - windows[i]);
+		sorted[distance] = windows[i];
+	}
+
+	shader.use();
+
+	cube.SetPosition(glm::vec3(-1.0f, 0.0f, -1.0f));
+	cube.Update(cubeTexture.GetTextureID(), shader);
+
+	cube.SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+	cube.Update(cubeTexture.GetTextureID(), shader);
+
+	plane.Update(floorTexture.GetTextureID(), shader);
+
+	for (std::map<float, glm::vec3>::reverse_iterator it = sorted.rbegin(); it != sorted.rend(); ++it)
+	{
+		Windows.SetPosition(it->second);
+		Windows.Update(windowTexture.GetTextureID(), shader);
 	}
 
 	screenShader.use();
@@ -246,8 +291,8 @@ void Game::Update2D()
 {
 	shader.use();
 
-	int test = cubeTexture.GetHeight() - textureFrame.GetHeight() + OffsetY;
+	int test = DQ1MapTexture.GetHeight() - textureFrame.GetHeight() + OffsetY;
 	screenShader.use();
-	glCopyImageSubData(cubeTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, test, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
+	glCopyImageSubData(DQ1MapTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, test, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
 	frame.Update(textureFrame.GetTextureID());
 }
