@@ -5,6 +5,8 @@
 class FrameBuffer
 {
 private:
+	unsigned int Width;
+	unsigned int Height;
 	unsigned int FrameBufferID;
 	unsigned int FrameBufferVAO;
 	unsigned int FrameBufferVBO;
@@ -14,7 +16,7 @@ public:
 	FrameBuffer();
 	~FrameBuffer();
 
-	void InitializeFrameBuffer();
+	void InitializeFrameBuffer(unsigned int Width, unsigned int Height);
 	void FrameBufferStart();
 	void FrameBufferEnd();
 	void CloseFrameBuffer();

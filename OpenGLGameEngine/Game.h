@@ -8,53 +8,6 @@
 #include "Frame.h"
 #include "GameMode.h"
 
-//class Game
-//{
-//private:
-//	float LastX;
-//	float LastY;
-//	float DeltaTime;
-//	float LastFrame;
-//	double MouseXPos;
-//	double MouseYPos;
-//	bool FirstMouse;
-//
-//	int OffsetX;
-//	int OffsetY;
-//
-//	GLWindow Window;
-//	Camera camera;
-//
-//	Frame frame;
-//	FrameBuffer fBuffer;
-//
-//	Shader2 shader;
-//	Shader2 screenShader;
-//	Mesh cube;
-//	Mesh plane;
-//	Mesh Windows;
-//	Texture DQ1MapTexture;
-//	Texture cubeTexture;
-//	Texture floorTexture;
-//	Texture grassTexture;
-//	Texture windowTexture;
-//	Texture containerTexture;
-//	Texture textureFrame;
-//	GameMode GameType;
-//public:
-//	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);
-//	~Game();
-//	void ProcessInput();
-//	void ProcessMouse();
-//	void UpdateProjectionView();
-//	void MainLoop();
-//	void Update();
-//	void Update2D();
-//
-//	GLFWwindow* GetWindow() { return Window.GetWindow(); }
-//};
-
-
 class Game
 {
 private:
@@ -62,7 +15,7 @@ private:
 	float lastY;
 	bool firstMouse;
 
-	float deltaTime;	
+	float deltaTime;
 	float lastFrame;
 
 	double MouseXPos;
@@ -75,9 +28,24 @@ private:
 	Camera camera;
 
 	Shader2 shader;
+	Shader2 screenShader;
+
 	Mesh cube;
-	Texture texture1;
-	Texture texture2;
+	Mesh plane;
+	Mesh Windows;
+
+	Texture DQ1MapTexture;
+	Texture cubeTexture;
+	Texture floorTexture;
+	Texture grassTexture;
+	Texture windowTexture;
+	Texture containerTexture;
+	Texture textureFrame;
+
+	GameMode GameType;
+
+	Frame frame;
+	FrameBuffer fBuffer;
 
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);
@@ -87,7 +55,7 @@ public:
 	void UpdateProjectionView();
 	void Update();
 	void Update2D();
-	void ProcessMouse(double xpos, double ypos);
+	void ProcessMouse();
 	void ProcessInput();
 
 	GLFWwindow* GetWindow() { return Window.GetWindow(); }
