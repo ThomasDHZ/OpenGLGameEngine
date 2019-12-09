@@ -148,6 +148,12 @@
     <None Include="7.4.camera.vs">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="LampShader.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="LampShader.fs">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Assets\wall.jpg">

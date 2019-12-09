@@ -178,6 +178,8 @@
     <None Include="7.4.camera.vs" />
     <None Include="FrameBufferShader.fs" />
     <None Include="FrameBufferShader.vs" />
+    <None Include="LampShader.fs" />
+    <None Include="LampShader.vs" />
     <None Include="Shader.fs" />
     <None Include="Shader.vs" />
   </ItemGroup>

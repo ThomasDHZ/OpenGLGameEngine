@@ -3,58 +3,58 @@
 
 std::vector<Vertex> vertices =
 {
-	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec2{ 0.0f, 0.0f}},
-	{glm::vec3{0.5f, -0.5f, -0.5f},  glm::vec2{  1.0f, 0.0f}},
-	{glm::vec3{0.5f,  0.5f, -0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{0.5f,  0.5f, -0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{-0.5f,  0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 0.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{ 0.0f, 0.0f}},
+	{glm::vec3{0.5f, -0.5f, -0.5f},   glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{0.5f,  0.5f, -0.5f},   glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{0.5f,  0.5f, -0.5f},   glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{-0.5f,  0.5f, -0.5f},  glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  0.0f, 0.0f}},
+	 
+	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  0.0f, 0.0f}},
+	{glm::vec3{ 0.5f, -0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{-0.5f,  0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  0.0f, 0.0f}},
 
-	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec2{  0.0f, 0.0f}},
-	{glm::vec3{ 0.5f, -0.5f,  0.5f},  glm::vec2{  1.0f, 0.0f}},
-	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{-0.5f,  0.5f,  0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec2{  0.0f, 0.0f}},
+	{glm::vec3{-0.5f,  0.5f,  0.5f},  glm::vec3{-1.0f,  0.0f,  0.0f}, glm::vec2{ 1.0f, 0.0f}},
+	{glm::vec3{-0.5f,  0.5f, -0.5f},  glm::vec3{-1.0f,  0.0f,  0.0f}, glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec3{-1.0f,  0.0f,  0.0f}, glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{	-0.5f, -0.5f, -0.5f}, glm::vec3{-1.0f,  0.0f,  0.0f}, glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec3{-1.0f,  0.0f,  0.0f}, glm::vec2{  0.0f, 0.0f}},
+	{glm::vec3{	-0.5f,  0.5f,  0.5f}, glm::vec3{-1.0f,  0.0f,  0.0f}, glm::vec2{  1.0f, 0.0f}},
 
-	{glm::vec3{-0.5f,  0.5f,  0.5f},  glm::vec2{ 1.0f, 0.0f}},
-	{glm::vec3{-0.5f,  0.5f, -0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{	-0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec2{  0.0f, 0.0f}},
-	{glm::vec3{	-0.5f,  0.5f,  0.5f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec3{1.0f,  0.0f,  0.0f},  glm::vec2{ 1.0f, 0.0f}},
+	{glm::vec3{ 0.5f,  0.5f, -0.5f},  glm::vec3{1.0f,  0.0f,  0.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{ 0.5f, -0.5f, -0.5f},  glm::vec3{1.0f,  0.0f,  0.0f},  glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{ 0.5f, -0.5f, -0.5f},  glm::vec3{1.0f,  0.0f,  0.0f},  glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{	 0.5f, -0.5f,  0.5f}, glm::vec3{1.0f,  0.0f,  0.0f},  glm::vec2{ 0.0f, 0.0f}},
+	{glm::vec3{	 0.5f,  0.5f,  0.5f}, glm::vec3{1.0f,  0.0f,  0.0f},  glm::vec2{ 1.0f, 0.0f}},
 
-	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec2{ 1.0f, 0.0f}},
-	{glm::vec3{ 0.5f,  0.5f, -0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{ 0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{ 0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{	 0.5f, -0.5f,  0.5f},  glm::vec2{ 0.0f, 0.0f}},
-	{glm::vec3{	 0.5f,  0.5f,  0.5f},  glm::vec2{ 1.0f, 0.0f}},
+	{glm::vec3{	-0.5f, -0.5f, -0.5f}, glm::vec3{0.0f, -1.0f,  0.0f},  glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{	 0.5f, -0.5f, -0.5f}, glm::vec3{0.0f, -1.0f,  0.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{	 0.5f, -0.5f,  0.5f}, glm::vec3{0.0f, -1.0f,  0.0f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{ 0.5f, -0.5f,  0.5f},  glm::vec3{0.0f, -1.0f,  0.0f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{	-0.5f, -0.5f,  0.5f}, glm::vec3{0.0f, -1.0f,  0.0f},  glm::vec2{  0.0f, 0.0f}},
+	{glm::vec3{	-0.5f, -0.5f, -0.5f}, glm::vec3{0.0f, -1.0f,  0.0f},  glm::vec2{  0.0f, 1.0f}},
 
-	{glm::vec3{	-0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{	 0.5f, -0.5f, -0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{	 0.5f, -0.5f,  0.5f},  glm::vec2{  1.0f, 0.0f}},
-	{glm::vec3{ 0.5f, -0.5f,  0.5f},  glm::vec2{  1.0f, 0.0f}},
-	{glm::vec3{	-0.5f, -0.5f,  0.5f},  glm::vec2{  0.0f, 0.0f}},
-	{glm::vec3{	-0.5f, -0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-
-	{glm::vec3{	-0.5f,  0.5f, -0.5f},  glm::vec2{  0.0f, 1.0f}},
-	{glm::vec3{	 0.5f,  0.5f, -0.5f},  glm::vec2{  1.0f, 1.0f}},
-	{glm::vec3{	 0.5f,  0.5f,  0.5f},  glm::vec2{  1.0f, 0.0f}},
-	{glm::vec3{	 0.5f,  0.5f,  0.5f},  glm::vec2{  1.0f, 0.0f}},
-	{glm::vec3{	-0.5f,  0.5f,  0.5f},  glm::vec2{ 0.0f, 0.0f}},
-	{glm::vec3{	-0.5f,  0.5f, -0.5f},  glm::vec2{0.0f, 1.0f}}
+	{glm::vec3{	-0.5f,  0.5f, -0.5f}, glm::vec3{0.0f,  1.0f,  0.0f},  glm::vec2{  0.0f, 1.0f}},
+	{glm::vec3{	 0.5f,  0.5f, -0.5f}, glm::vec3{0.0f,  1.0f,  0.0f},  glm::vec2{  1.0f, 1.0f}},
+	{glm::vec3{	 0.5f,  0.5f,  0.5f}, glm::vec3{0.0f,  1.0f,  0.0f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{	 0.5f,  0.5f,  0.5f}, glm::vec3{0.0f,  1.0f,  0.0f},  glm::vec2{  1.0f, 0.0f}},
+	{glm::vec3{	-0.5f,  0.5f,  0.5f}, glm::vec3{0.0f,  1.0f,  0.0f},  glm::vec2{ 0.0f, 0.0f}},
+	{glm::vec3{	-0.5f,  0.5f, -0.5f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f, 1.0f}}
 };
 
 	std::vector<Vertex> plainVert = 
 	{
-		 {glm::vec3{5.0f, -0.5f,  5.0f},  glm::vec2{  2.0f, 0.0f}},
-		{glm::vec3{-5.0f, -0.5f,  5.0f},  glm::vec2{  0.0f, 0.0f}},
-		{glm::vec3{-5.0f, -0.5f, -5.0f},  glm::vec2{  0.0f, 2.0f}},
+		 {glm::vec3{5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 0.0f}},
+		{glm::vec3{-5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 0.0f}},
+		{glm::vec3{-5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 2.0f}},
 
-		{glm::vec3{ 5.0f, -0.5f,  5.0f},  glm::vec2{  2.0f, 0.0f}},
-		{glm::vec3{-5.0f, -0.5f, -5.0f},  glm::vec2{  0.0f, 2.0f}},
-		 {glm::vec3{5.0f, -0.5f, -5.0f},  glm::vec2{  2.0f, 2.0f}}
+		{glm::vec3{ 5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 0.0f}},
+		{glm::vec3{-5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 2.0f}},
+		 {glm::vec3{5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 2.0f}}
 	};
 
 	float quadVertices[] = 
@@ -79,13 +79,13 @@ std::vector<Vertex> vertices =
 
 	std::vector<Vertex> transparentVertices = 
 	{
-		{glm::vec3{0.0f,  0.5f,  0.0f},  glm::vec2{0.0f,  0.0f}},
-		{glm::vec3{0.0f, -0.5f,  0.0f},  glm::vec2{0.0f,  1.0f}},
-		{glm::vec3{1.0f, -0.5f,  0.0f},  glm::vec2{1.0f,  1.0f}},
+		{glm::vec3{0.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  0.0f}},
+		{glm::vec3{0.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  1.0f}},
+		{glm::vec3{1.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  1.0f}},
 
-		{glm::vec3{0.0f,  0.5f,  0.0f},  glm::vec2{0.0f,  0.0f}},
-		{glm::vec3{1.0f, -0.5f,  0.0f},  glm::vec2{1.0f,  1.0f}},
-		{glm::vec3{1.0f,  0.5f,  0.0f},  glm::vec2{1.0f,  0.0f}}
+		{glm::vec3{0.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  0.0f}},
+		{glm::vec3{1.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  1.0f}},
+		{glm::vec3{1.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  0.0f}}
 	};
 
 glm::vec3 cubePositions[] = {
@@ -102,6 +102,8 @@ glm::vec3 cubePositions[] = {
 };
 
 std::vector<unsigned int> indices = { };
+
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName)
 {
@@ -123,12 +125,14 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
-	shader = Shader2("5.1.framebuffers.vs", "5.1.framebuffers.fs");
+	shader = Shader2("Shader.vs", "Shader.fs");
+	lampShader = Shader2("LampShader.vs", "LampShader.fs");
 	screenShader = Shader2("FrameBufferShader.vs", "FrameBufferShader.fs");
 
 	std::vector<unsigned int> indices = { };
 
 	cube = Mesh(vertices, indices);
+	LightMesh = Mesh(vertices, indices);
 	plane = Mesh(plainVert, indices);
 	Windows = Mesh(transparentVertices, indices);
 
@@ -147,6 +151,8 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 
 	fBuffer.InitializeFrameBuffer(width, height);
 	frame.InitializeFrameBuffer();
+
+	LightMesh.SetScale(glm::vec3(0.2f));
 }
 
 Game::~Game()
@@ -204,7 +210,10 @@ void Game::Update()
 	}
 
 	shader.use();
-
+	shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+	shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+	shader.setVec3("lightPos", lightPos);
+	shader.setVec3("viewPos", camera.Position);
 
 	cube.SetPosition(glm::vec3(-1.0f, 0.0f, -1.0f));
 	cube.Update(cubeTexture.GetTextureID(), shader);
@@ -219,6 +228,19 @@ void Game::Update()
 		Windows.SetPosition(it->second);
 		Windows.Update(windowTexture.GetTextureID(), shader);
 	}
+
+	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
+	shader.setMat4("projection", projection);
+
+	glm::mat4 view = camera.GetViewMatrix();
+	shader.setMat4("view", view);
+
+	lampShader.use();
+	lampShader.setMat4("projection", projection);
+	lampShader.setMat4("view", view);
+
+	LightMesh.SetPosition(lightPos);
+	LightMesh.Update(windowTexture.GetTextureID(), lampShader);
 
 	screenShader.use();
 }

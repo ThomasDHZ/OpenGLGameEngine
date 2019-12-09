@@ -28,9 +28,11 @@ private:
 	Camera camera;
 
 	Shader2 shader;
+	Shader2 lampShader;
 	Shader2 screenShader;
 
 	Mesh cube;
+	Mesh LightMesh;
 	Mesh plane;
 	Mesh Windows;
 
