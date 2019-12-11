@@ -28,6 +28,7 @@ public:
 	Mesh& operator=(const Mesh& rhs);
 
 	void Update(unsigned int TextureIDz, Shader2 shader);
+	void Update(unsigned int TextureIDz, unsigned int TextureIDz2, Shader2 shader);
 	void SetTextureID(unsigned int textureID);
 	void DeleteBuffers();
 
@@ -41,8 +42,5 @@ public:
 	void SetRotationX(const float x);
 	void SetRotationY(const float y);
 	void SetRotationZ(const float z);
-
-	unsigned int GetVAO() { return VAO; }
-	unsigned int GetVBO() { return VBO; }
 };
 

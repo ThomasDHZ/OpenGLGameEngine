@@ -103,7 +103,7 @@ glm::vec3 cubePositions[] = {
 
 std::vector<unsigned int> indices = { };
 
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos2(1.2f, 1.0f, 2.0f);
 
 Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName)
 {
@@ -212,7 +212,7 @@ void Game::Update()
 	shader.use();
 	shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 	shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-	shader.setVec3("lightPos", lightPos);
+	shader.setVec3("lightPos", lightPos2);
 	shader.setVec3("viewPos", camera.Position);
 
 	cube.SetPosition(glm::vec3(-1.0f, 0.0f, -1.0f));
@@ -239,7 +239,7 @@ void Game::Update()
 	lampShader.setMat4("projection", projection);
 	lampShader.setMat4("view", view);
 
-	LightMesh.SetPosition(lightPos);
+	LightMesh.SetPosition(lightPos2);
 	LightMesh.Update(windowTexture.GetTextureID(), lampShader);
 
 	screenShader.use();

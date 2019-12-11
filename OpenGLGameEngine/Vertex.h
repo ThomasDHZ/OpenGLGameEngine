@@ -3,8 +3,8 @@
 
 enum VertexMap
 {
-	Pos,
-	Color,
+	Position,
+	Normal,
 	TextureCoord
 };
 

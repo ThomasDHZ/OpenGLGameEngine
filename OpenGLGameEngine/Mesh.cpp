@@ -22,26 +22,30 @@ Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, VertexCount * sizeof(Vertex), &VertexList[0], GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(VAO);
+
+	glEnableVertexAttribArray(VertexMap::Position);
+	glEnableVertexAttribArray(VertexMap::Normal);
+	glEnableVertexAttribArray(VertexMap::TextureCoord);
+
+	glVertexAttribPointer(VertexMap::Position, 3, GL_FLOAT, GL_FALSE, sizeof(VertexList), (void*)0);
+	glVertexAttribPointer(VertexMap::Normal, 3, GL_FLOAT, GL_FALSE, sizeof(VertexList), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(VertexMap::TextureCoord, 2, GL_FLOAT, GL_FALSE, sizeof(VertexList), (void*)(6 * sizeof(float)));
+
 }
 
 Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList, GLGraphicsManager& manager)
 {
+	VertexCount = VertexList.size();
+
 	ModelMatrix = glm::mat4(1.0f);
 	Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	Scale = glm::vec3(1.0f);
-
-	VertexCount = VertexList.size();
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -53,7 +57,7 @@ Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -89,6 +93,25 @@ void Mesh::Update(unsigned int TextureIDz, Shader2 shader)
 	glBindVertexArray(VAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, TextureIDz);
+
+	shader.setMat4("model", ModelMatrix);
+	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
+}
+
+void Mesh::Update(unsigned int TextureIDz, unsigned int TextureIDz2, Shader2 shader)
+{
+	ModelMatrix = glm::mat4(1.0f);
+	ModelMatrix = glm::translate(ModelMatrix, Position);
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	ModelMatrix = glm::scale(ModelMatrix, Scale);
+
+	glBindVertexArray(VAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, TextureIDz);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, TextureIDz2);
 
 	shader.setMat4("model", ModelMatrix);
 	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
