@@ -50,7 +50,7 @@ void Frame::InitializeFrameBuffer()
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-void Frame::Update(unsigned int TextureID)
+void Frame::Update(unsigned int TextureID, unsigned int TextureID2)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, FrameBufferID);
 	glEnable(GL_DEPTH_TEST);
@@ -59,12 +59,16 @@ void Frame::Update(unsigned int TextureID)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	
 	glDisable(GL_DEPTH_TEST);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glBindVertexArray(FrameBufferVAO);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, TextureID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, TextureID2);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 

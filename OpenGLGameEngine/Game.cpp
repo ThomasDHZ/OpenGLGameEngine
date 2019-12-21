@@ -101,6 +101,14 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
+glm::vec3 pointLightPositions[] = {
+	glm::vec3(0.7f,  0.2f,  2.0f),
+	glm::vec3(2.3f, -3.3f, -4.0f),
+	glm::vec3(-4.0f,  2.0f, -12.0f),
+	glm::vec3(0.0f,  0.0f, -3.0f)
+};
+
+
 std::vector<unsigned int> indices = { };
 
 glm::vec3 lightPos2(1.2f, 1.0f, 2.0f);
@@ -119,9 +127,10 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 
 	OffsetX = 0;
 	OffsetY = 0;
+	SpriteOffsetX = 0;
+	SpriteOffsetY = 0;
 
 	Window = GLWindow{ 4, 6, width, height, "GameWindow" };
-	Window.SetBackGroundColor(glm::vec3{ 0.0f, 0.1f, 0.2f });
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
@@ -138,19 +147,33 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 
 	cubeTexture = Texture("Assets/marble.jpg");
 	floorTexture = Texture("Assets/metal.png");
-	grassTexture = Texture("Assets/grass.png");
+	grassTexture = Texture("Assets/cat.png");
 	windowTexture = Texture("Assets/window.png");
 	containerTexture = Texture("Assets/container.jpg");
 	DQ1MapTexture = Texture("Assets/alefgardfull4KTest.bmp");
+	 diffuseMap = Texture("Assets/container2.png");
+	 specularMap = Texture("Assets/container2_specular.png");
 	textureFrame = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
+	textureFrame2 = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
+	BlankTexture = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 
+	Dlight = DirectionalLight(glm::vec3(-0.2f, -1.0f, -0.3f));
+	PLight1 = PointLight(pointLightPositions[0], 0);
+	PLight2 = PointLight(pointLightPositions[1], 1);
+	PLight3 = PointLight(pointLightPositions[2], 2);
+	PLight4 = PointLight(pointLightPositions[3], 3);
 	GameType = gameMode;
 
 	shader.use();
-	shader.setInt("texture1", 0);
+	shader.setInt("material.diffuse", 0);
+	shader.setInt("material.specular", 1);
 
 	fBuffer.InitializeFrameBuffer(width, height);
 	frame.InitializeFrameBuffer();
+
+	screenShader.use();
+	screenShader.setInt("screenTexture", 0);
+	screenShader.setInt("screenTexture2", 1);
 
 	LightMesh.SetScale(glm::vec3(0.2f));
 }
@@ -173,13 +196,14 @@ void Game::MainLoop()
 	Window.StartFrame();
 	if (GameType == GameMode::Mode3D)
 	{
-		fBuffer.FrameBufferStart();
+		//fBuffer.FrameBufferStart();
 		UpdateProjectionView();
 		Update();
-		fBuffer.FrameBufferEnd();
+		//fBuffer.FrameBufferEnd();
 	}
 	else
 	{
+		glCopyImageSubData(BlankTexture.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame2.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, BlankTexture.GetWidth(), BlankTexture.GetHeight(), 1);
 		Update2D();
 	}
 	Window.EndFrame();
@@ -202,7 +226,60 @@ void Game::Update()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	std::map<float, glm::vec3> sorted;
+	shader.use();
+	shader.setVec3("viewPos", camera.Position);
+	shader.setFloat("material.shininess", 32.0f);
+
+	Dlight.Update(shader);
+	PLight1.Update(shader);
+	PLight1.SetAmbient(glm::vec3(1.0f, 0.0f, 0.0f));
+	PLight2.Update(shader);
+	PLight2.SetAmbient(glm::vec3(0.0f, 1.0f, 0.0f));
+	PLight3.Update(shader);
+	PLight3.SetAmbient(glm::vec3(0.0f, 0.0f, 1.0f));
+	PLight4.Update(shader);
+	PLight4.SetAmbient(glm::vec3(1.0f, 0.0f, 1.0f));
+
+	shader.setVec3("spotLight[0].position", camera.Position);
+	shader.setVec3("spotLight[0].direction", camera.Front);
+	shader.setVec3("spotLight[0].ambient", 0.0f, 0.0f, 0.0f);
+	shader.setVec3("spotLight[0].diffuse", 1.0f, 1.0f, 1.0f);
+	shader.setVec3("spotLight[0].specular", 1.0f, 1.0f, 1.0f);
+	shader.setFloat("spotLight[0].constant", 1.0f);
+	shader.setFloat("spotLight[0].linear", 0.09);
+	shader.setFloat("spotLight[0].quadratic", 0.032);
+	shader.setFloat("spotLight[0].cutOff", glm::cos(glm::radians(12.5f)));
+	shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(15.0f)));
+
+	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
+	glm::mat4 view = camera.GetViewMatrix();
+	shader.setMat4("projection", projection);
+	shader.setMat4("view", view);
+
+	glm::mat4 model = glm::mat4(1.0f);
+	shader.setMat4("model", model);
+
+
+	for (unsigned int i = 0; i < 10; i++)
+	{
+		cube.SetPosition(cubePositions[i]);
+		cube.SetRotation(glm::vec3(1.0f, 0.3f, 0.5f));
+		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), shader);
+	}
+
+	// also draw the lamp object(s)
+	lampShader.use();
+	lampShader.setMat4("projection", projection);
+	lampShader.setMat4("view", view);
+
+
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		cube.SetPosition(pointLightPositions[i]);
+		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), lampShader);
+	}
+
+	/*std::map<float, glm::vec3> sorted;
 	for (unsigned int i = 0; i < windows.size(); i++)
 	{
 		float distance = glm::length(camera.Position - windows[i]);
@@ -240,19 +317,23 @@ void Game::Update()
 	lampShader.setMat4("view", view);
 
 	LightMesh.SetPosition(lightPos2);
-	LightMesh.Update(windowTexture.GetTextureID(), lampShader);
+	LightMesh.Update(windowTexture.GetTextureID(), lampShader);*/
 
 	screenShader.use();
 }
 
 void Game::Update2D()
 {
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	shader.use();
 
-	int test = DQ1MapTexture.GetHeight() - textureFrame.GetHeight() + OffsetY;
 	screenShader.use();
-	glCopyImageSubData(DQ1MapTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, test, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
-	frame.Update(textureFrame.GetTextureID());
+	glCopyImageSubData(DQ1MapTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, DQ1MapTexture.GetHeight() - textureFrame.GetHeight() + OffsetY, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
+	glCopyImageSubData(windowTexture.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame2.GetTextureID(), GL_TEXTURE_2D, 0, SpriteOffsetX, SpriteOffsetY, 0, 256, 256, 1);
+	frame.Update(textureFrame.GetTextureID(), textureFrame2.GetTextureID());
 }
 
 void Game::ProcessMouse()
@@ -297,13 +378,49 @@ void Game::ProcessInput()
 		GameType = Mode3D;
 
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, deltaTime);
+	{
+		if (GameType == Mode3D)
+		{
+			camera.ProcessKeyboard(FORWARD, deltaTime);
+		}
+		else
+		{
+			SpriteOffsetY += 128;
+		}
+	}
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
+	{
+		if (GameType == Mode3D)
+		{
+			camera.ProcessKeyboard(BACKWARD, deltaTime);
+		}
+		else
+		{
+			SpriteOffsetY -= 128;
+		}
+	}
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, deltaTime);
+	{
+		if (GameType == Mode3D)
+		{
+			camera.ProcessKeyboard(LEFT, deltaTime);
+		}
+		else
+		{
+			SpriteOffsetX -= 128;
+		}
+	}
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, deltaTime);
+	{
+		if (GameType == Mode3D)
+		{
+			camera.ProcessKeyboard(RIGHT, deltaTime);
+		}
+		else
+		{
+			SpriteOffsetX += 128;
+		}
+	}
 
 	if (glfwGetKey(Window.GetWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS)
 		OffsetX += 128;

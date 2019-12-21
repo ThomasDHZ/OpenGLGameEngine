@@ -19,6 +19,8 @@ GLWindow::GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMi
 	OpenGLVersionMajor = openGLVersionMajor;
 	OpenGLVersionMinor = openGLVersionMinor;
 
+	BackGroundColor = glm::vec3(0.0f);
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OpenGLVersionMajor);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OpenGLVersionMinor);

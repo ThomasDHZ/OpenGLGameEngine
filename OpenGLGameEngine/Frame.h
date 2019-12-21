@@ -19,7 +19,7 @@ public:
 	~Frame();
 
 	void InitializeFrameBuffer();
-	void Update(unsigned int TextureID);
+	void Update(unsigned int TextureID, unsigned int TextureID2);
 	void CloseFrameBuffer();
 	Frame& operator=(const Frame& rhs);
 };

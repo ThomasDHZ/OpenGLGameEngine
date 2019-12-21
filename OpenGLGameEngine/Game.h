@@ -7,6 +7,8 @@
 #include "camera.h"
 #include "Frame.h"
 #include "GameMode.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
 
 class Game
 {
@@ -23,6 +25,8 @@ private:
 
 	int OffsetX;
 	int OffsetY;
+	int SpriteOffsetX;
+	int SpriteOffsetY;
 
 	GLWindow Window;
 	Camera camera;
@@ -42,7 +46,17 @@ private:
 	Texture grassTexture;
 	Texture windowTexture;
 	Texture containerTexture;
+	Texture diffuseMap;
+	Texture specularMap;
 	Texture textureFrame;
+	Texture textureFrame2;
+	Texture BlankTexture;
+
+	DirectionalLight Dlight;
+	PointLight PLight1;
+	PointLight PLight2;
+	PointLight PLight3;
+	PointLight PLight4;
 
 	GameMode GameType;
 

@@ -14,13 +14,12 @@ private:
 	int Height = 0;
 
 	GLFWwindow* Window;
-	glm::vec3 BackGroundColor = glm::vec3(0.0f);
+	glm::vec3 BackGroundColor;
 
 public:
 	GLWindow();
 	GLWindow(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, const char* WindowName);
 	~GLWindow();
-	GLFWwindow* GetWindow() { return Window; }
 
 	void BufferSize();
 	void StartFrame();
@@ -29,6 +28,7 @@ public:
 	void SetBackGroundColor(glm::vec3 color);
 	void ShutDownGLWindow();
 
+	GLFWwindow* GetWindow() { return Window; }
 	int GetWindowWidth() { return Width; }
 	int GetWindowHeight() { return Height; }
 };

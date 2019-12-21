@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="DirectXWindow.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -145,6 +147,7 @@
     <ClCompile Include="MainShader.cpp" />
     <ClCompile Include="FrameBufferShader.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -153,7 +156,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Desktop\New folder (5)\OpenGLEngine\Include\Soil\stb_image.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="ChiliWin.h" />
     <ClInclude Include="ColorEnum.h" />
+    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="DirectXWindow.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="FrameBuffer.h" />
@@ -164,6 +170,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="FrameBufferShader.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="ShaderTypeEnum.h" />
@@ -174,6 +181,8 @@
   <ItemGroup>
     <None Include="5.1.framebuffers.fs" />
     <None Include="5.1.framebuffers.vs" />
+    <None Include="5.1.framebuffers_screen.fs" />
+    <None Include="5.1.framebuffers_screen.vs" />
     <None Include="7.4.camera.fs" />
     <None Include="7.4.camera.vs" />
     <None Include="FrameBufferShader.fs" />
