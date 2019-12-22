@@ -38,29 +38,6 @@ Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int
 
 }
 
-Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList, GLGraphicsManager& manager)
-{
-	VertexCount = VertexList.size();
-
-	ModelMatrix = glm::mat4(1.0f);
-	Position = glm::vec3(0.0f, 0.0f, 0.0f);
-	Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	Scale = glm::vec3(1.0f);
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexList), &VertexList, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
 Mesh::~Mesh()
 {
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
-#include "Vertex.h"
-#include "GLGraphicsManager.h"
+#include "../Engine.Shared/Vertex.h"
 #include "shader_m.h"
 
 class Mesh
@@ -22,7 +21,6 @@ private:
 public:
 	Mesh();
 	Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList);
-	Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList, GLGraphicsManager& manager);
 	~Mesh();
 
 	Mesh& operator=(const Mesh& rhs);

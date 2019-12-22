@@ -1,10 +1,10 @@
 #pragma once
 #include "GLGraphicsManager.h"
 #include "../OpenGL.Base/GLWindow.h"
-#include "Mesh.h"
-#include "Texture.h"
+#include "../OpenGL.Graphics3D/Mesh.h"
+#include "../OpenGL.Graphics3D/Texture.h"
 #include "FrameBuffer.h"
-#include "camera.h"
+#include "../OpenGL.Graphics3D/camera.h"
 #include "Frame.h"
 #include "GameMode.h"
 #include "DirectionalLight.h"

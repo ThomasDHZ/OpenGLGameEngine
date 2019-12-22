@@ -4,7 +4,6 @@
 #include <Soil/stb_image.h>
 #include <FileSystem.h>
 #include <iostream>
-#include "ColorEnum.h"
 #include <Soil/stb_image.h>
 
 Texture::Texture()

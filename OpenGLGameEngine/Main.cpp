@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameMode.h"
 #include "../OpenGL.Base/GLWindow.h"
+#include "../DirectX11.Base/DirectXWindow.h"
 
 int main()
 {
@@ -11,6 +12,15 @@ int main()
 	{
 		game.MainLoop();
 	}
+
+	//DirectXWindow game = DirectXWindow(3840, 2160, "GameWindow");
+
+	//while (!glfwWindowShouldClose(game.GetWindow()))
+	//{
+	//	game.StartFrame();
+	//	game.ClearBuffer(1.0f, 0.0f, 0.0f);
+	//	game.EndFrame();
+	//}
 
 	return 0;
 }

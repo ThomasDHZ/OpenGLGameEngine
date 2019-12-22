@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include "MainShader.h"
 #include <vector>
-#include "Texture.h"
+#include "../OpenGL.Graphics3D/Texture.h"
 #include "FrameBufferShader.h"
 
 class GLGraphicsManager
