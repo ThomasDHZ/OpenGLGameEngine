@@ -53,12 +53,19 @@ DirectXWindow::DirectXWindow(unsigned int width, unsigned int height, const char
 
 DirectXWindow::~DirectXWindow()
 {
+	glfwDestroyWindow(Window);
+	glfwTerminate();
 }
 
 void DirectXWindow::ClearBuffer(float r, float g, float b)
 {
 	const float color[] = { r, g,b,1.0f };
 	pContext->ClearRenderTargetView(pTarget, color);
+}
+
+void DirectXWindow::StartFrame()
+{
+	glfwPollEvents();
 }
 
 void DirectXWindow::EndFrame()

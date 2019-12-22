@@ -20,6 +20,7 @@ public:
 	DirectXWindow(unsigned int width, unsigned int height, const char* WindowName);
 	~DirectXWindow();
 	void ClearBuffer(float r, float g, float b);
+	void StartFrame();
 	void EndFrame();
 	GLFWwindow* GetWindow() { return Window; }
 };

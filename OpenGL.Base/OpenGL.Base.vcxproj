@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{4F54BAD0-28CF-43AE-A2B2-921422B5C9EB}</ProjectGuid>
-    <RootNamespace>OpenGLGameEngine</RootNamespace>
+    <ProjectGuid>{42F371AE-AA39-4E40-A839-25D6986CDB89}</ProjectGuid>
+    <RootNamespace>OpenGLBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -39,13 +39,13 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -53,7 +53,6 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -70,15 +69,8 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -89,17 +81,15 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>cudart.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -125,81 +115,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>cudart.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="FrameBuffer.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="GLGraphicsManager.cpp" />
-    <ClCompile Include="GLWindow.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MainShader.cpp" />
-    <ClCompile Include="FrameBufferShader.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="PointLight.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderCompiler.cpp" />
-    <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="Texture.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\Desktop\New folder (5)\OpenGLEngine\Include\Soil\stb_image.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="ColorEnum.h" />
-    <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="FileSystem.h" />
-    <ClInclude Include="Frame.h" />
-    <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GLGraphicsManager.h" />
-    <ClInclude Include="GLWindow.h" />
-    <ClInclude Include="MainShader.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="FrameBufferShader.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderCompiler.h" />
-    <ClInclude Include="ShaderTypeEnum.h" />
-    <ClInclude Include="shader_m.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Vertex.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="5.1.framebuffers.fs" />
-    <None Include="5.1.framebuffers.vs" />
-    <None Include="5.1.framebuffers_screen.fs" />
-    <None Include="5.1.framebuffers_screen.vs" />
-    <None Include="7.4.camera.fs" />
-    <None Include="7.4.camera.vs" />
-    <None Include="FrameBufferShader.fs" />
-    <None Include="FrameBufferShader.vs" />
-    <None Include="LampShader.fs" />
-    <None Include="LampShader.vs" />
-    <None Include="Shader.fs" />
-    <None Include="Shader.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Assets\alefgardfull4KTest.bmp" />
-    <Image Include="..\Assets\wall.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DirectX11.Base\DirectX11.Base.vcxproj">
-      <Project>{e4881ec8-b557-4b28-b262-09e58c5fc1dc}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.targets" />
   </ImportGroup>
 </Project>
