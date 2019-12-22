@@ -69,7 +69,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -123,6 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GLWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Shared\Engine.Shared.vcxproj">
+      <Project>{4885ac4f-e30b-4bb6-9db8-72c3f3edc205}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

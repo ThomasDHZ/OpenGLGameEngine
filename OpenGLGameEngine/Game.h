@@ -1,6 +1,6 @@
 #pragma once
 #include "GLGraphicsManager.h"
-#include "GLWindow.h"
+#include "../OpenGL.Base/GLWindow.h"
 #include "Mesh.h"
 #include "Texture.h"
 #include "FrameBuffer.h"

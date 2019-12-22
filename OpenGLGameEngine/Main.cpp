@@ -1,17 +1,15 @@
 #include "Game.h"
 #include "GameMode.h"
-#include "../DirectX11.Base/DirectXWindow.h"
+#include "../OpenGL.Base/GLWindow.h"
 
 int main()
 {
 
-	DirectXWindow game = DirectXWindow(3840, 2160, "GameWindow");
+	Game game = Game(4,6, 3840, 2160, GameMode::Mode3D, "GameWindow");
 
 	while (!glfwWindowShouldClose(game.GetWindow()))
 	{
-		game.ClearBuffer(1.0f, 0.0f, 0.0f);
-		game.StartFrame();
-		game.EndFrame();
+		game.MainLoop();
 	}
 
 	return 0;
