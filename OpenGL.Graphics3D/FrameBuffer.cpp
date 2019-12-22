@@ -1,5 +1,6 @@
 #include "FrameBuffer.h"
 #include "FileSystem.h"
+#include <iostream>
 
 FrameBuffer::FrameBuffer()
 {

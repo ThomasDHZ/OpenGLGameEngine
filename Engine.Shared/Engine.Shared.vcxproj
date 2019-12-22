@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="..\Include\glad\glad.h" />
     <ClInclude Include="..\Include\Soil\stb_image.h" />
+    <ClInclude Include="ColorEnum.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

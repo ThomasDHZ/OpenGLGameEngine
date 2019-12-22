@@ -1,6 +1,5 @@
 #pragma once
 #include <glm\ext\vector_float3.hpp>
-#include "Shader.h"
 #include "../OpenGL.Graphics3D/shader_m.h"
 
 struct PointLightStruct

@@ -169,7 +169,7 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader.setInt("material.specular", 1);
 
 	fBuffer.InitializeFrameBuffer(width, height);
-	frame.InitializeFrameBuffer();
+	//frame.InitializeFrameBuffer();
 
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
@@ -333,7 +333,7 @@ void Game::Update2D()
 	screenShader.use();
 	glCopyImageSubData(DQ1MapTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, DQ1MapTexture.GetHeight() - textureFrame.GetHeight() + OffsetY, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
 	glCopyImageSubData(windowTexture.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame2.GetTextureID(), GL_TEXTURE_2D, 0, SpriteOffsetX, SpriteOffsetY, 0, 256, 256, 1);
-	frame.Update(textureFrame.GetTextureID(), textureFrame2.GetTextureID());
+	//frame.Update(textureFrame.GetTextureID(), textureFrame2.GetTextureID());
 }
 
 void Game::ProcessMouse()

@@ -1,14 +1,12 @@
 #pragma once
-#include "GLGraphicsManager.h"
 #include "../OpenGL.Base/GLWindow.h"
 #include "../OpenGL.Graphics3D/Mesh.h"
 #include "../OpenGL.Graphics3D/Texture.h"
-#include "FrameBuffer.h"
+#include "../OpenGL.Graphics3D/FrameBuffer.h"
 #include "../OpenGL.Graphics3D/camera.h"
-#include "Frame.h"
 #include "GameMode.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
+#include "../OpenGL.Graphics3D/DirectionalLight.h"
+#include "../OpenGL.Graphics3D/PointLight.h"
 
 class Game
 {
@@ -60,7 +58,7 @@ private:
 
 	GameMode GameType;
 
-	Frame frame;
+	//Frame frame;
 	FrameBuffer fBuffer;
 
 public:

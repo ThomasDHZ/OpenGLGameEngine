@@ -138,11 +138,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="model.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
