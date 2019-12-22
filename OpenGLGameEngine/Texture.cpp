@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include <glad\glad.h>
 #include <gl\GL.h>
-#include "../../../../Desktop/New folder (5)/OpenGLEngine/Include/Soil/stb_image.h"
+#include <Soil/stb_image.h>
 #include <FileSystem.h>
 #include <iostream>
 #include "ColorEnum.h"

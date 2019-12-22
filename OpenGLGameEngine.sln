@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX11.Graphics2D", "Dir
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX11.Graphics3D", "DirectX11.Graphics3D\DirectX11.Graphics3D.vcxproj", "{146F6C10-279C-425D-864C-B79ACA39C284}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine.Shared", "Engine.Shared\Engine.Shared.vcxproj", "{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{146F6C10-279C-425D-864C-B79ACA39C284}.Release|x64.Build.0 = Release|x64
 		{146F6C10-279C-425D-864C-B79ACA39C284}.Release|x86.ActiveCfg = Release|Win32
 		{146F6C10-279C-425D-864C-B79ACA39C284}.Release|x86.Build.0 = Release|Win32
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Debug|x64.ActiveCfg = Debug|x64
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Debug|x64.Build.0 = Debug|x64
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Debug|x86.ActiveCfg = Debug|Win32
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Debug|x86.Build.0 = Debug|Win32
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Release|x64.ActiveCfg = Release|x64
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Release|x64.Build.0 = Release|x64
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Release|x86.ActiveCfg = Release|Win32
+		{4885AC4F-E30B-4BB6-9DB8-72C3F3EDC205}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
