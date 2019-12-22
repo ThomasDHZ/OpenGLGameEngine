@@ -168,8 +168,9 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader.setInt("material.diffuse", 0);
 	shader.setInt("material.specular", 1);
 
-	fBuffer.InitializeFrameBuffer(width, height);
-	//frame.InitializeFrameBuffer();
+	//fBuffer.InitializeFrameBuffer(width, height);
+	Display2d = Display2D(Window.GetWindowWidth(), Window.GetWindowHeight());
+	Display2d.InitializeFrameBuffer();
 
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
@@ -324,16 +325,12 @@ void Game::Update()
 
 void Game::Update2D()
 {
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	shader.use();
 
 	screenShader.use();
 	glCopyImageSubData(DQ1MapTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, DQ1MapTexture.GetHeight() - textureFrame.GetHeight() + OffsetY, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
 	glCopyImageSubData(windowTexture.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame2.GetTextureID(), GL_TEXTURE_2D, 0, SpriteOffsetX, SpriteOffsetY, 0, 256, 256, 1);
-	//frame.Update(textureFrame.GetTextureID(), textureFrame2.GetTextureID());
+	Display2d.Update(textureFrame.GetTextureID(), textureFrame2.GetTextureID());
 }
 
 void Game::ProcessMouse()

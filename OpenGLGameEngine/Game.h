@@ -7,6 +7,7 @@
 #include "GameMode.h"
 #include "../OpenGL.Graphics3D/DirectionalLight.h"
 #include "../OpenGL.Graphics3D/PointLight.h"
+#include "../OpenGL.Graphics2D/Display2D.h"
 
 class Game
 {
@@ -58,8 +59,8 @@ private:
 
 	GameMode GameType;
 
-	//Frame frame;
-	FrameBuffer fBuffer;
+	//FrameBuffer fBuffer;
+	Display2D Display2d;
 
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);

@@ -69,7 +69,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\ZZT\source\repos\OpenGLGameEngine\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -123,6 +130,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackGroundLayer.cpp" />
+    <ClCompile Include="Frame2D.cpp" />
+    <ClCompile Include="Display2D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BackGroundLayer.h" />
+    <ClInclude Include="Frame2D.h" />
+    <ClInclude Include="Display2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
