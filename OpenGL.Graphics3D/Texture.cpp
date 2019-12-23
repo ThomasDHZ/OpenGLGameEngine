@@ -8,6 +8,10 @@
 
 Texture::Texture()
 {
+	TextureID = 0;
+	Width = 0;
+	Height = 0;
+	ColorChannels = 0;
 }
 
 Texture::Texture(unsigned int width, unsigned int height)

@@ -45,7 +45,7 @@ private:
 	Texture cubeTexture;
 	Texture floorTexture;
 	Texture grassTexture;
-	std::shared_ptr<Texture> windowTexture;
+	std::shared_ptr<Sprite> windowTexture;
 	Texture containerTexture;
 	Texture diffuseMap;
 	Texture specularMap;

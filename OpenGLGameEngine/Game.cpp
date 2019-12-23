@@ -148,7 +148,7 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	cubeTexture = Texture("Assets/marble.jpg");
 	floorTexture = Texture("Assets/metal.png");
 	grassTexture = Texture("Assets/cat.png");
-	windowTexture = std::make_shared<Texture>("Assets/window.png");
+	windowTexture = std::make_shared<Sprite>("Assets/window.png", glm::vec2(0.0f, 0.0f));
 	containerTexture = Texture("Assets/container.jpg");
 	DQ1MapTexture = std::make_shared<Texture>("Assets/alefgardfull4KTest.bmp");
 	 diffuseMap = Texture("Assets/container2.png");
@@ -176,6 +176,7 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	Display2d.InitializeFrameBuffer();
 
 	layer = Layer2D(Window.GetWindowWidth(), Window.GetWindowHeight());
+	layer.AddSprite(windowTexture);
 
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
@@ -334,7 +335,9 @@ void Game::Update2D()
 
 	screenShader.use();
 	backgroundLayer.Update();
-	layer.Update(windowTexture);
+
+	windowTexture->SetPosition(SpriteOffsetX, SpriteOffsetY);
+	layer.Update();
 
 	Display2d.Update(backgroundLayer.GetDisplayTexture()->GetTextureID(), layer.GetLayerTexture()->GetTextureID());
 }

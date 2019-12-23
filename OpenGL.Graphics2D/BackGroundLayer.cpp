@@ -30,6 +30,12 @@ void BackGroundLayer::SetBackGourndTexture(std::shared_ptr<Texture> NewBackGroun
 	BackGroundTexture = NewBackGroundTexture;
 }
 
+void BackGroundLayer::ReleaseTexture()
+{
+	BackGroundTexture->ReleaseTexture();
+	DisplayTexture->ReleaseTexture();
+}
+
 BackGroundLayer& BackGroundLayer::operator=(const BackGroundLayer& rhs)
 {
 	BackGroundTexture = rhs.BackGroundTexture;

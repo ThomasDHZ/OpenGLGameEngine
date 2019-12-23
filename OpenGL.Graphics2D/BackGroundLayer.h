@@ -17,6 +17,8 @@ public:
 
 	void Update();
 	void SetBackGourndTexture(std::shared_ptr<Texture> NewBackGroundTexture);
+	void ReleaseTexture();
+
 	std::shared_ptr<Texture> GetDisplayTexture() { return DisplayTexture; }
 	BackGroundLayer& operator=(const BackGroundLayer& rhs);
 };

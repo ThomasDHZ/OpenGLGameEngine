@@ -14,9 +14,19 @@ Layer2D::~Layer2D()
 {
 }
 
-void Layer2D::Update(std::shared_ptr<Texture> AddTexture)
+void Layer2D::Update()
 {
-	glCopyImageSubData(AddTexture->GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, LayerTexture->GetTextureID(), GL_TEXTURE_2D, 0, 2056, 0, 0, AddTexture->GetWidth(), AddTexture->GetHeight(), 1);
+	glCopyImageSubData(SpriteTexture->GetSprite().GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, LayerTexture->GetTextureID(), GL_TEXTURE_2D, 0, SpriteTexture->GetPosition().x, SpriteTexture->GetPosition().y, 0, SpriteTexture->GetSprite().GetWidth(), SpriteTexture->GetSprite().GetHeight(), 1);
+}
+
+void Layer2D::AddSprite(std::shared_ptr<Sprite> AddSprite)
+{
+	SpriteTexture = AddSprite;
+}
+
+void Layer2D::ReleaseLayer()
+{
+	LayerTexture->ReleaseTexture();
 }
 
 Layer2D& Layer2D::operator=(const Layer2D& rhs)
