@@ -18,10 +18,10 @@
     <ClCompile Include="BackGroundLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Frame2D.cpp">
+    <ClCompile Include="Display2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Display2D.cpp">
+    <ClCompile Include="Layer2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +29,10 @@
     <ClInclude Include="BackGroundLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Frame2D.h">
+    <ClInclude Include="Display2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Display2D.h">
+    <ClInclude Include="Layer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

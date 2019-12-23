@@ -8,6 +8,8 @@
 #include "../OpenGL.Graphics3D/DirectionalLight.h"
 #include "../OpenGL.Graphics3D/PointLight.h"
 #include "../OpenGL.Graphics2D/Display2D.h"
+#include "../OpenGL.Graphics2D/BackGroundLayer.h"
+#include "../OpenGL.Graphics2D/Layer2D.h"
 
 class Game
 {
@@ -39,11 +41,11 @@ private:
 	Mesh plane;
 	Mesh Windows;
 
-	Texture DQ1MapTexture;
+	std::shared_ptr<Texture> DQ1MapTexture;
 	Texture cubeTexture;
 	Texture floorTexture;
 	Texture grassTexture;
-	Texture windowTexture;
+	std::shared_ptr<Texture> windowTexture;
 	Texture containerTexture;
 	Texture diffuseMap;
 	Texture specularMap;
@@ -60,7 +62,10 @@ private:
 	GameMode GameType;
 
 	//FrameBuffer fBuffer;
+	BackGroundLayer backgroundLayer;
+
 	Display2D Display2d;
+	Layer2D layer;
 
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);

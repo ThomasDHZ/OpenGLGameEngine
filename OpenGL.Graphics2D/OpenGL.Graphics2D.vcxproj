@@ -131,13 +131,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundLayer.cpp" />
-    <ClCompile Include="Frame2D.cpp" />
     <ClCompile Include="Display2D.cpp" />
+    <ClCompile Include="Layer2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundLayer.h" />
-    <ClInclude Include="Frame2D.h" />
     <ClInclude Include="Display2D.h" />
+    <ClInclude Include="Layer2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

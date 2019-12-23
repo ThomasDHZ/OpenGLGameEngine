@@ -148,9 +148,9 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	cubeTexture = Texture("Assets/marble.jpg");
 	floorTexture = Texture("Assets/metal.png");
 	grassTexture = Texture("Assets/cat.png");
-	windowTexture = Texture("Assets/window.png");
+	windowTexture = std::make_shared<Texture>("Assets/window.png");
 	containerTexture = Texture("Assets/container.jpg");
-	DQ1MapTexture = Texture("Assets/alefgardfull4KTest.bmp");
+	DQ1MapTexture = std::make_shared<Texture>("Assets/alefgardfull4KTest.bmp");
 	 diffuseMap = Texture("Assets/container2.png");
 	 specularMap = Texture("Assets/container2_specular.png");
 	textureFrame = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
@@ -168,9 +168,14 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader.setInt("material.diffuse", 0);
 	shader.setInt("material.specular", 1);
 
+	backgroundLayer = BackGroundLayer(Window.GetWindowWidth(), Window.GetWindowHeight());
+	backgroundLayer.SetBackGourndTexture(DQ1MapTexture);
+
 	//fBuffer.InitializeFrameBuffer(width, height);
 	Display2d = Display2D(Window.GetWindowWidth(), Window.GetWindowHeight());
 	Display2d.InitializeFrameBuffer();
+
+	layer = Layer2D(Window.GetWindowWidth(), Window.GetWindowHeight());
 
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
@@ -328,9 +333,10 @@ void Game::Update2D()
 	shader.use();
 
 	screenShader.use();
-	glCopyImageSubData(DQ1MapTexture.GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, DQ1MapTexture.GetHeight() - textureFrame.GetHeight() + OffsetY, 0, textureFrame.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame.GetWidth(), textureFrame.GetHeight(), 1);
-	glCopyImageSubData(windowTexture.GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, textureFrame2.GetTextureID(), GL_TEXTURE_2D, 0, SpriteOffsetX, SpriteOffsetY, 0, 256, 256, 1);
-	Display2d.Update(textureFrame.GetTextureID(), textureFrame2.GetTextureID());
+	backgroundLayer.Update();
+	layer.Update(windowTexture);
+
+	Display2d.Update(backgroundLayer.GetDisplayTexture()->GetTextureID(), layer.GetLayerTexture()->GetTextureID());
 }
 
 void Game::ProcessMouse()
