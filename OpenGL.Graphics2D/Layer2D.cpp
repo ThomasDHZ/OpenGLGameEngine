@@ -16,7 +16,10 @@ Layer2D::~Layer2D()
 
 void Layer2D::Update()
 {
-	glCopyImageSubData(SpriteTexture->GetSprite().GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, LayerTexture->GetTextureID(), GL_TEXTURE_2D, 0, SpriteTexture->GetPosition().x, SpriteTexture->GetPosition().y, 0, SpriteTexture->GetSprite().GetWidth(), SpriteTexture->GetSprite().GetHeight(), 1);
+	if (SpriteTexture != nullptr)
+	{
+		glCopyImageSubData(SpriteTexture->GetSprite().GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, LayerTexture->GetTextureID(), GL_TEXTURE_2D, 0, SpriteTexture->GetPosition().x, SpriteTexture->GetPosition().y, 0, SpriteTexture->GetSprite().GetWidth(), SpriteTexture->GetSprite().GetHeight(), 1);
+	}
 }
 
 void Layer2D::AddSprite(std::shared_ptr<Sprite> AddSprite)

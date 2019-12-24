@@ -46,7 +46,7 @@ void Display2D::InitializeFrameBuffer()
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-void Display2D::Update(unsigned int TextureID, unsigned int TextureID2)
+void Display2D::Update(unsigned int TextureID, std::vector<Layer2D>& LayerList) 
 {
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -58,8 +58,12 @@ void Display2D::Update(unsigned int TextureID, unsigned int TextureID2)
 	glBindVertexArray(FrameBufferVAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, TextureID);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, TextureID2);
+
+	for (int x = 0; x <= LayerList.size() - 1; x++)
+	{
+		glActiveTexture(GL_TEXTURE1 + x);
+		glBindTexture(GL_TEXTURE_2D, LayerList[x].GetLayerTexture()->GetTextureID());
+	}
 	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
 }
 

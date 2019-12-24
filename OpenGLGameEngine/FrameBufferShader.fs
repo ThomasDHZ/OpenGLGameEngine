@@ -3,26 +3,33 @@ out vec4 FragColor;
 
 in vec2 TexCoords;
 
-uniform sampler2D screenTexture;
-uniform sampler2D screenTexture2;
+uniform sampler2D Layer[30];
 
 void main()
 {
-    vec3 col = texture(screenTexture, TexCoords).rgb;
+    vec3 col = texture(Layer[0], TexCoords).rgb;
 
-	if(texture(screenTexture2, TexCoords).a == 0.0f)
+	for(int x = 1; x <= 30; x++)
 	{
-		col = texture(screenTexture, TexCoords).rgb;
-	}
-	else
-	{
-		if(texture(screenTexture2, TexCoords).a == 1.0f)
+		if(texture(Layer[x], TexCoords).r > 0.0f &&
+		   texture(Layer[x], TexCoords).g > 0.0f &&
+		   texture(Layer[x], TexCoords).b > 0.0f)
 		{
-			col = texture(screenTexture2, TexCoords).rgb;
-		}
-		else
-		{
-			col *= texture(screenTexture2, TexCoords).rgb;
+			if(texture(Layer[x], TexCoords).a == 0.0f)
+			{
+				col = texture(Layer[x-1], TexCoords).rgb;
+			}
+			else
+			{
+				if(texture(Layer[x], TexCoords).a == 1.0f)
+				{
+					col = texture(Layer[x], TexCoords).rgb;
+				}
+				else
+				{
+					col *= texture(Layer[x], TexCoords).rgb;
+				}
+			}
 		}
 	}
 

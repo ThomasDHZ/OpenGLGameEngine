@@ -25,9 +25,15 @@ void BackGroundLayer::Update()
 	glCopyImageSubData(BackGroundTexture->GetTextureID(), GL_TEXTURE_2D, 0, OffsetX, FinalOffsetY, 0, DisplayTexture->GetTextureID(), GL_TEXTURE_2D, 0, 0, 0, 0, DisplayTexture->GetWidth(), DisplayTexture->GetHeight(), 1);
 }
 
-void BackGroundLayer::SetBackGourndTexture(std::shared_ptr<Texture> NewBackGroundTexture)
+void BackGroundLayer::SetBackGroundexture(std::shared_ptr<Texture> NewBackGroundTexture)
 {
 	BackGroundTexture = NewBackGroundTexture;
+}
+
+void BackGroundLayer::SetPosition(int X, int Y)
+{
+	OffsetX = X;
+	OffsetY = Y;
 }
 
 void BackGroundLayer::ReleaseTexture()

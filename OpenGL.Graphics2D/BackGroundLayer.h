@@ -16,7 +16,8 @@ public:
 	~BackGroundLayer();
 
 	void Update();
-	void SetBackGourndTexture(std::shared_ptr<Texture> NewBackGroundTexture);
+	void SetBackGroundexture(std::shared_ptr<Texture> NewBackGroundTexture);
+	void SetPosition(int X, int Y);
 	void ReleaseTexture();
 
 	std::shared_ptr<Texture> GetDisplayTexture() { return DisplayTexture; }

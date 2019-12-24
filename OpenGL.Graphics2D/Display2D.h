@@ -4,6 +4,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <vector>
+#include "Layer2D.h"
 
 class Display2D
 {
@@ -46,7 +47,7 @@ public:
 	~Display2D();
 
 	void InitializeFrameBuffer();
-	void Update(unsigned int TextureID, unsigned int TextureID2);
+	void Update(unsigned int TextureID, std::vector<Layer2D>& LayerList);
 	void CloseFrameBuffer();
 	Display2D& operator=(const Display2D& rhs);
 };

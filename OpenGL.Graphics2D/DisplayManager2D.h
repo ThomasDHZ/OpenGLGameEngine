@@ -10,18 +10,19 @@ private:
 	
 	std::shared_ptr<Texture> ClearLayerTexture;
 
-	Layer2D Layer;
+	std::vector<Layer2D> LayerList;
 	BackGroundLayer Background;
 	Display2D Display2d;
 
 	void ClearLayers();
 public:
 	DisplayManager2D();
-	DisplayManager2D(unsigned int width, unsigned int height);
+	DisplayManager2D(unsigned int width, unsigned int height, unsigned int LayerCount);
 	~DisplayManager2D();
 
 	void Update();
-	void AddSprite(std::shared_ptr<Sprite> sprite);
+	void SetBackGroundPosition(int X, int Y);
+	void AddSprite(std::shared_ptr<Sprite> sprite, unsigned int Layer);
 	void AddBackGroundImage(std::shared_ptr<Texture> background);
 };
 

@@ -168,15 +168,17 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader.setInt("material.diffuse", 0);
 	shader.setInt("material.specular", 1);
 
-	DManger2D = DisplayManager2D(Window.GetWindowWidth(), Window.GetWindowHeight());
+	DManger2D = DisplayManager2D(Window.GetWindowWidth(), Window.GetWindowHeight(), 30);
 	DManger2D.AddBackGroundImage(DQ1MapTexture);
-	DManger2D.AddSprite(windowTexture);
+	DManger2D.AddSprite(windowTexture, 14);
 
 	//fBuffer.InitializeFrameBuffer(width, height);
 
 	screenShader.use();
-	screenShader.setInt("screenTexture", 0);
-	screenShader.setInt("screenTexture2", 1);
+	for (int x = 0; x <= 31; x++)
+	{
+		screenShader.setInt("Layer[" + std::to_string(x) + "]", x);
+	}
 
 	LightMesh.SetScale(glm::vec3(0.2f));
 }
@@ -331,6 +333,7 @@ void Game::Update2D()
 
 	screenShader.use();
 
+	DManger2D.SetBackGroundPosition(OffsetX, OffsetY);
 	windowTexture->SetPosition(SpriteOffsetX, SpriteOffsetY);
 
 	DManger2D.Update();
