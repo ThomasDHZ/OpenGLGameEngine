@@ -168,15 +168,11 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader.setInt("material.diffuse", 0);
 	shader.setInt("material.specular", 1);
 
-	backgroundLayer = BackGroundLayer(Window.GetWindowWidth(), Window.GetWindowHeight());
-	backgroundLayer.SetBackGourndTexture(DQ1MapTexture);
+	DManger2D = DisplayManager2D(Window.GetWindowWidth(), Window.GetWindowHeight());
+	DManger2D.AddBackGroundImage(DQ1MapTexture);
+	DManger2D.AddSprite(windowTexture);
 
 	//fBuffer.InitializeFrameBuffer(width, height);
-	Display2d = Display2D(Window.GetWindowWidth(), Window.GetWindowHeight());
-	Display2d.InitializeFrameBuffer();
-
-	layer = Layer2D(Window.GetWindowWidth(), Window.GetWindowHeight());
-	layer.AddSprite(windowTexture);
 
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
@@ -334,12 +330,10 @@ void Game::Update2D()
 	shader.use();
 
 	screenShader.use();
-	backgroundLayer.Update();
 
 	windowTexture->SetPosition(SpriteOffsetX, SpriteOffsetY);
-	layer.Update();
 
-	Display2d.Update(backgroundLayer.GetDisplayTexture()->GetTextureID(), layer.GetLayerTexture()->GetTextureID());
+	DManger2D.Update();
 }
 
 void Game::ProcessMouse()

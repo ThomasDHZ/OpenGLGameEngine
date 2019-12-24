@@ -132,12 +132,14 @@
   <ItemGroup>
     <ClCompile Include="BackGroundLayer.cpp" />
     <ClCompile Include="Display2D.cpp" />
+    <ClCompile Include="DisplayManager2D.cpp" />
     <ClCompile Include="Layer2D.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundLayer.h" />
     <ClInclude Include="Display2D.h" />
+    <ClInclude Include="DisplayManager2D.h" />
     <ClInclude Include="Layer2D.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>

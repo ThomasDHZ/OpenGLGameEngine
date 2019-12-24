@@ -10,6 +10,7 @@
 #include "../OpenGL.Graphics2D/Display2D.h"
 #include "../OpenGL.Graphics2D/BackGroundLayer.h"
 #include "../OpenGL.Graphics2D/Layer2D.h"
+#include "../OpenGL.Graphics2D/DisplayManager2D.h"
 
 class Game
 {
@@ -62,11 +63,10 @@ private:
 	GameMode GameType;
 
 	//FrameBuffer fBuffer;
-	BackGroundLayer backgroundLayer;
+	//BackGroundLayer backgroundLayer;
+	//Layer2D layer;
 
-	Display2D Display2d;
-	Layer2D layer;
-
+	DisplayManager2D DManger2D;
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);
 	~Game();
