@@ -41,6 +41,7 @@ private:
 	Mesh LightMesh;
 	Mesh plane;
 	Mesh Windows;
+	Mesh Floor;
 
 	std::shared_ptr<Texture> DQ1MapTexture;
 	Texture cubeTexture;
@@ -53,6 +54,7 @@ private:
 	Texture textureFrame;
 	Texture textureFrame2;
 	Texture BlankTexture;
+	Texture FloorTexture;
 
 	DirectionalLight Dlight;
 	PointLight PLight1;

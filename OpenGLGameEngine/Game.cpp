@@ -88,6 +88,17 @@ std::vector<Vertex> vertices =
 		{glm::vec3{1.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  0.0f}}
 	};
 
+	std::vector<Vertex> planeVertices = {
+		// positions            // normals         // texcoords
+		{glm::vec3{10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{10.0f,  0.0f}},
+		{glm::vec3{-10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f,  0.0f}},
+		{glm::vec3{-10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 10.0f}},
+
+		 {glm::vec3{10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f,  0.0f}},
+		{glm::vec3{-10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 10.0f}},
+		 {glm::vec3{10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{10.0f, 10.0f}}
+	};
+
 glm::vec3 cubePositions[] = {
 	glm::vec3(0.0f,  0.0f,  0.0f),
 	glm::vec3(2.0f,  5.0f, -15.0f),
@@ -144,18 +155,20 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	LightMesh = Mesh(vertices, indices);
 	plane = Mesh(plainVert, indices);
 	Windows = Mesh(transparentVertices, indices);
+	Floor = Mesh(planeVertices, indices);
 
 	cubeTexture = Texture("Assets/marble.jpg");
 	floorTexture = Texture("Assets/metal.png");
 	grassTexture = Texture("Assets/cat.png");
 	windowTexture = std::make_shared<Sprite>("Assets/window.png", glm::vec2(0.0f, 0.0f));
 	containerTexture = Texture("Assets/container.jpg");
-	DQ1MapTexture = std::make_shared<Texture>("Assets/alefgardfull4KTest.bmp");
+	//DQ1MapTexture = std::make_shared<Texture>("Assets/alefgardfull4KTest.bmp");
 	 diffuseMap = Texture("Assets/container2.png");
 	 specularMap = Texture("Assets/container2_specular.png");
 	textureFrame = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 	textureFrame2 = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 	BlankTexture = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
+	FloorTexture = Texture("Assets/wood.png");
 
 	Dlight = DirectionalLight(glm::vec3(-0.2f, -1.0f, -0.3f));
 	PLight1 = PointLight(pointLightPositions[0], 0);
@@ -235,26 +248,54 @@ void Game::Update()
 	shader.setVec3("viewPos", camera.Position);
 	shader.setFloat("material.shininess", 32.0f);
 
-	Dlight.Update(shader);
-	PLight1.Update(shader);
-	PLight1.SetAmbient(glm::vec3(1.0f, 0.0f, 0.0f));
-	PLight2.Update(shader);
-	PLight2.SetAmbient(glm::vec3(0.0f, 1.0f, 0.0f));
-	PLight3.Update(shader);
-	PLight3.SetAmbient(glm::vec3(0.0f, 0.0f, 1.0f));
-	PLight4.Update(shader);
-	PLight4.SetAmbient(glm::vec3(1.0f, 0.0f, 1.0f));
-
-	shader.setVec3("spotLight[0].position", camera.Position);
-	shader.setVec3("spotLight[0].direction", camera.Front);
-	shader.setVec3("spotLight[0].ambient", 0.0f, 0.0f, 0.0f);
-	shader.setVec3("spotLight[0].diffuse", 1.0f, 1.0f, 1.0f);
-	shader.setVec3("spotLight[0].specular", 1.0f, 1.0f, 1.0f);
-	shader.setFloat("spotLight[0].constant", 1.0f);
-	shader.setFloat("spotLight[0].linear", 0.09);
-	shader.setFloat("spotLight[0].quadratic", 0.032);
-	shader.setFloat("spotLight[0].cutOff", glm::cos(glm::radians(12.5f)));
-	shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(15.0f)));
+	// directional light
+	shader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+	shader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+	shader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+	shader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+	// point light 1
+	shader.setVec3("pointLights[0].position", pointLightPositions[0]);
+	shader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+	shader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+	shader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+	shader.setFloat("pointLights[0].constant", 1.0f);
+	shader.setFloat("pointLights[0].linear", 0.09);
+	shader.setFloat("pointLights[0].quadratic", 0.032);
+	// point light 2
+	shader.setVec3("pointLights[1].position", pointLightPositions[1]);
+	shader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+	shader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+	shader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+	shader.setFloat("pointLights[1].constant", 1.0f);
+	shader.setFloat("pointLights[1].linear", 0.09);
+	shader.setFloat("pointLights[1].quadratic", 0.032);
+	// point light 3
+	shader.setVec3("pointLights[2].position", pointLightPositions[2]);
+	shader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+	shader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+	shader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+	shader.setFloat("pointLights[2].constant", 1.0f);
+	shader.setFloat("pointLights[2].linear", 0.09);
+	shader.setFloat("pointLights[2].quadratic", 0.032);
+	// point light 4
+	shader.setVec3("pointLights[3].position", pointLightPositions[3]);
+	shader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+	shader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+	shader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+	shader.setFloat("pointLights[3].constant", 1.0f);
+	shader.setFloat("pointLights[3].linear", 0.09);
+	shader.setFloat("pointLights[3].quadratic", 0.032);
+	// spotLight
+	shader.setVec3("spotLight.position", camera.Position);
+	shader.setVec3("spotLight.direction", camera.Front);
+	shader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+	shader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+	shader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+	shader.setFloat("spotLight.constant", 1.0f);
+	shader.setFloat("spotLight.linear", 0.09);
+	shader.setFloat("spotLight.quadratic", 0.032);
+	shader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+	shader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
 	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
 	glm::mat4 view = camera.GetViewMatrix();
@@ -271,6 +312,8 @@ void Game::Update()
 		cube.SetRotation(glm::vec3(1.0f, 0.3f, 0.5f));
 		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), shader);
 	}
+
+	Floor.Update(FloorTexture.GetTextureID(), BlankTexture.GetTextureID(), shader);
 
 	// also draw the lamp object(s)
 	lampShader.use();
