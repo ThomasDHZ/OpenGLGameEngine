@@ -33,6 +33,9 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderCompiler.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,6 +89,12 @@
       <Filter>Shader Files</Filter>
     </None>
     <None Include="5.1.framebuffers_screen.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="SkyBox.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="SkyBox.fs">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

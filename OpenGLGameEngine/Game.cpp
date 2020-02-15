@@ -1,5 +1,7 @@
 #include "Game.h"
 #include <map>
+#include <Soil\stb_image.h>
+#include <FileSystem.h>
 
 std::vector<Vertex> vertices =
 {
@@ -9,7 +11,7 @@ std::vector<Vertex> vertices =
 	{glm::vec3{0.5f,  0.5f, -0.5f},   glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  1.0f, 1.0f}},
 	{glm::vec3{-0.5f,  0.5f, -0.5f},  glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  0.0f, 1.0f}},
 	{glm::vec3{-0.5f, -0.5f, -0.5f},  glm::vec3{0.0f,  0.0f, -1.0f},  glm::vec2{  0.0f, 0.0f}},
-	 
+
 	{glm::vec3{-0.5f, -0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  0.0f, 0.0f}},
 	{glm::vec3{ 0.5f, -0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  1.0f, 0.0f}},
 	{glm::vec3{ 0.5f,  0.5f,  0.5f},  glm::vec3{0.0f,  0.0f,  1.0f},  glm::vec2{  1.0f, 1.0f}},
@@ -46,58 +48,58 @@ std::vector<Vertex> vertices =
 	{glm::vec3{	-0.5f,  0.5f, -0.5f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f, 1.0f}}
 };
 
-	std::vector<Vertex> plainVert = 
-	{
-		 {glm::vec3{5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 0.0f}},
-		{glm::vec3{-5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 0.0f}},
-		{glm::vec3{-5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 2.0f}},
+std::vector<Vertex> plainVert =
+{
+	 {glm::vec3{5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 0.0f}},
+	{glm::vec3{-5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 0.0f}},
+	{glm::vec3{-5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 2.0f}},
 
-		{glm::vec3{ 5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 0.0f}},
-		{glm::vec3{-5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 2.0f}},
-		 {glm::vec3{5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 2.0f}}
-	};
+	{glm::vec3{ 5.0f, -0.5f,  5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 0.0f}},
+	{glm::vec3{-5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  0.0f, 2.0f}},
+	 {glm::vec3{5.0f, -0.5f, -5.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{  2.0f, 2.0f}}
+};
 
-	float quadVertices[] = 
-	{ 
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
+float quadVertices[] =
+{
+	-1.0f,  1.0f,  0.0f, 1.0f,
+	-1.0f, -1.0f,  0.0f, 0.0f,
+	 1.0f, -1.0f,  1.0f, 0.0f,
 
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f
-	};
+	-1.0f,  1.0f,  0.0f, 1.0f,
+	 1.0f, -1.0f,  1.0f, 0.0f,
+	 1.0f,  1.0f,  1.0f, 1.0f
+};
 
-	std::vector<glm::vec3> windows
-	{
-		glm::vec3(-1.5f, 0.0f, -0.48f),
-		glm::vec3(1.5f, 0.0f, 0.51f),
-		glm::vec3(0.0f, 0.0f, 0.7f),
-		glm::vec3(-0.3f, 0.0f, -2.3f),
-		glm::vec3(0.5f, 0.0f, -0.6f)
-	};
+std::vector<glm::vec3> windows
+{
+	glm::vec3(-1.5f, 0.0f, -0.48f),
+	glm::vec3(1.5f, 0.0f, 0.51f),
+	glm::vec3(0.0f, 0.0f, 0.7f),
+	glm::vec3(-0.3f, 0.0f, -2.3f),
+	glm::vec3(0.5f, 0.0f, -0.6f)
+};
 
-	std::vector<Vertex> transparentVertices = 
-	{
-		{glm::vec3{0.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  0.0f}},
-		{glm::vec3{0.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  1.0f}},
-		{glm::vec3{1.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  1.0f}},
+std::vector<Vertex> transparentVertices =
+{
+	{glm::vec3{0.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  0.0f}},
+	{glm::vec3{0.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  1.0f}},
+	{glm::vec3{1.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  1.0f}},
 
-		{glm::vec3{0.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  0.0f}},
-		{glm::vec3{1.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  1.0f}},
-		{glm::vec3{1.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  0.0f}}
-	};
+	{glm::vec3{0.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{0.0f,  0.0f}},
+	{glm::vec3{1.0f, -0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  1.0f}},
+	{glm::vec3{1.0f,  0.5f,  0.0f}, glm::vec3{-0.0f,  1.0f,  0.0f}, glm::vec2{1.0f,  0.0f}}
+};
 
-	std::vector<Vertex> planeVertices = {
-		// positions            // normals         // texcoords
-		{glm::vec3{10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{10.0f,  0.0f}},
-		{glm::vec3{-10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f,  0.0f}},
-		{glm::vec3{-10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 10.0f}},
+std::vector<Vertex> planeVertices = {
+	// positions            // normals         // texcoords
+	{glm::vec3{10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{10.0f,  0.0f}},
+	{glm::vec3{-10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f,  0.0f}},
+	{glm::vec3{-10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 10.0f}},
 
-		 {glm::vec3{10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f,  0.0f}},
-		{glm::vec3{-10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 10.0f}},
-		 {glm::vec3{10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{10.0f, 10.0f}}
-	};
+	 {glm::vec3{10.0f, -0.5f,  10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f,  0.0f}},
+	{glm::vec3{-10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 10.0f}},
+	 {glm::vec3{10.0f, -0.5f, -10.0f}, glm::vec3{0.0f, 1.0f, 0.0f}, glm::vec2{10.0f, 10.0f}}
+};
 
 glm::vec3 cubePositions[] = {
 	glm::vec3(0.0f,  0.0f,  0.0f),
@@ -118,7 +120,6 @@ glm::vec3 pointLightPositions[] = {
 	glm::vec3(-4.0f,  2.0f, -12.0f),
 	glm::vec3(0.0f,  0.0f, -3.0f)
 };
-
 
 std::vector<unsigned int> indices = { };
 
@@ -148,14 +149,26 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader = Shader2("Shader.vs", "Shader.fs");
 	lampShader = Shader2("LampShader.vs", "LampShader.fs");
 	screenShader = Shader2("FrameBufferShader.vs", "FrameBufferShader.fs");
+	SkyBoxShader = Shader2("SkyBox.vs", "SkyBox.fs");
 
 	std::vector<unsigned int> indices = { };
+
+	std::vector<std::string> faces
+	{
+		FileSystem::getPath("Assets/right.jpg"),
+		FileSystem::getPath("Assets/left.jpg"),
+		FileSystem::getPath("Assets/top.jpg"),
+		FileSystem::getPath("Assets/bottom.jpg"),
+		FileSystem::getPath("Assets/front.jpg"),
+		FileSystem::getPath("Assets/back.jpg"),
+	};
 
 	cube = Mesh(vertices, indices);
 	LightMesh = Mesh(vertices, indices);
 	plane = Mesh(plainVert, indices);
 	Windows = Mesh(transparentVertices, indices);
 	Floor = Mesh(planeVertices, indices);
+	skybox = SkyBox(faces);
 
 	cubeTexture = Texture("Assets/marble.jpg");
 	floorTexture = Texture("Assets/metal.png");
@@ -163,8 +176,8 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	windowTexture = std::make_shared<Sprite>("Assets/window.png", glm::vec2(0.0f, 0.0f));
 	containerTexture = Texture("Assets/container.jpg");
 	//DQ1MapTexture = std::make_shared<Texture>("Assets/alefgardfull4KTest.bmp");
-	 diffuseMap = Texture("Assets/container2.png");
-	 specularMap = Texture("Assets/container2_specular.png");
+	diffuseMap = Texture("Assets/container2.png");
+	specularMap = Texture("Assets/container2_specular.png");
 	textureFrame = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 	textureFrame2 = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 	BlankTexture = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
@@ -326,6 +339,10 @@ void Game::Update()
 		cube.SetPosition(pointLightPositions[i]);
 		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), lampShader);
 	}
+
+	skybox.Update(SkyBoxShader, camera, Window.GetWindowWidth(), Window.GetWindowHeight());
+
+
 
 	/*std::map<float, glm::vec3> sorted;
 	for (unsigned int i = 0; i < windows.size(); i++)
