@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ReflectionSkyBox.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="SkyBox.cpp" />
@@ -145,12 +146,17 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
+    <ClInclude Include="ReflectionSkyBox.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="ShaderTypeEnum.h" />
     <ClInclude Include="SkyBox.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DepthMap.fs" />
+    <None Include="DepthMap.vs" />
+    <None Include="DepthMapDebug.fs" />
+    <None Include="DepthMapDebug.vs" />
     <None Include="FrameBufferShader.fs" />
     <None Include="FrameBufferShader.vs" />
     <None Include="LampShader.fs" />

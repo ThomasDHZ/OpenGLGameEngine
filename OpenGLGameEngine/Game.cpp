@@ -313,6 +313,14 @@ void Game::Update()
 	shader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
 	shader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
+	RenderScene();
+	RenderLightDebug();
+	RenderSkybox();
+	screenShader.use();
+}
+
+void Game::RenderScene()
+{
 	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
 	glm::mat4 view = camera.GetViewMatrix();
 	glm::mat4 model = glm::mat4(1.0f);
@@ -334,64 +342,28 @@ void Game::Update()
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox.GetCubemapTexture());
 	NewModel.Draw(shader);
+}
 
-	// also draw the lamp object(s)
+void Game::RenderSkybox()
+{
+	skybox.Update(SkyBoxShader, camera, Window.GetWindowWidth(), Window.GetWindowHeight());
+}
+
+void Game::RenderLightDebug()
+{
+	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
+	glm::mat4 view = camera.GetViewMatrix();
+	glm::mat4 model = glm::mat4(1.0f);
+
 	lampShader.use();
 	lampShader.setMat4("projection", projection);
 	lampShader.setMat4("view", view);
-
 
 	for (unsigned int i = 0; i < 4; i++)
 	{
 		cube.SetPosition(pointLightPositions[i]);
 		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), reflectionMap.GetTextureID(), lampShader);
 	}
-
-	skybox.Update(SkyBoxShader, camera, Window.GetWindowWidth(), Window.GetWindowHeight());
-
-
-
-	/*std::map<float, glm::vec3> sorted;
-	for (unsigned int i = 0; i < windows.size(); i++)
-	{
-		float distance = glm::length(camera.Position - windows[i]);
-		sorted[distance] = windows[i];
-	}
-
-	shader.use();
-	shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-	shader.setVec3("lightPos", lightPos2);
-	shader.setVec3("viewPos", camera.Position);
-
-	cube.SetPosition(glm::vec3(-1.0f, 0.0f, -1.0f));
-	cube.Update(cubeTexture.GetTextureID(), shader);
-
-	cube.SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
-	cube.Update(cubeTexture.GetTextureID(), shader);
-
-	plane.Update(floorTexture.GetTextureID(), shader);
-
-	for (std::map<float, glm::vec3>::reverse_iterator it = sorted.rbegin(); it != sorted.rend(); ++it)
-	{
-		Windows.SetPosition(it->second);
-		Windows.Update(windowTexture.GetTextureID(), shader);
-	}
-
-	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
-	shader.setMat4("projection", projection);
-
-	glm::mat4 view = camera.GetViewMatrix();
-	shader.setMat4("view", view);
-
-	lampShader.use();
-	lampShader.setMat4("projection", projection);
-	lampShader.setMat4("view", view);
-
-	LightMesh.SetPosition(lightPos2);
-	LightMesh.Update(windowTexture.GetTextureID(), lampShader);*/
-
-	screenShader.use();
 }
 
 void Game::Update2D()

@@ -36,6 +36,9 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ReflectionSkyBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderCompiler.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionSkyBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,6 +89,18 @@
       <Filter>Shader Files</Filter>
     </None>
     <None Include="SkyBox.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="DepthMapDebug.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="DepthMapDebug.vs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="DepthMap.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="DepthMap.vs">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

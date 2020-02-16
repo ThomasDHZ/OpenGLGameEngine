@@ -84,6 +84,9 @@ public:
 	void MainLoop();
 	void UpdateProjectionView();
 	void Update();
+	void RenderScene();
+	void RenderSkybox();
+	void RenderLightDebug();
 	void Update2D();
 	void ProcessMouse();
 	void ProcessInput();
