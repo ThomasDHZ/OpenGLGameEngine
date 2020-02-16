@@ -168,6 +168,7 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	plane = Mesh(plainVert, indices);
 	Windows = Mesh(transparentVertices, indices);
 	Floor = Mesh(planeVertices, indices);
+	NewModel = Model("C://Users//ZZT//source//repos//OpenGLGameEngine//objects//nanosuit//nanosuit.obj");
 	skybox = SkyBox(faces);
 
 	cubeTexture = Texture("Assets/marble.jpg");
@@ -198,13 +199,12 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	DManger2D.AddBackGroundImage(DQ1MapTexture);
 	DManger2D.AddSprite(windowTexture, 14);
 
-	//fBuffer.InitializeFrameBuffer(width, height);
+	fBuffer.InitializeFrameBuffer(Window.GetWindowWidth(), Window.GetWindowHeight());
 
 	screenShader.use();
-	for (int x = 0; x <= 31; x++)
-	{
-		screenShader.setInt("Layer[" + std::to_string(x) + "]", x);
-	}
+	screenShader.setInt("screenTexture", 0);
+
+
 
 	LightMesh.SetScale(glm::vec3(0.2f));
 }
@@ -227,10 +227,10 @@ void Game::MainLoop()
 	Window.StartFrame();
 	if (GameType == GameMode::Mode3D)
 	{
-		//fBuffer.FrameBufferStart();
+		fBuffer.FrameBufferStart();
 		UpdateProjectionView();
 		Update();
-		//fBuffer.FrameBufferEnd();
+		fBuffer.FrameBufferEnd();
 	}
 	else
 	{
@@ -327,6 +327,8 @@ void Game::Update()
 	}
 
 	Floor.Update(FloorTexture.GetTextureID(), BlankTexture.GetTextureID(), shader);
+
+	NewModel.Draw(shader);
 
 	// also draw the lamp object(s)
 	lampShader.use();

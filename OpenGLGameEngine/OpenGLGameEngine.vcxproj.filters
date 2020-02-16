@@ -53,6 +53,12 @@
     <ClInclude Include="SkyBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader.vs">
@@ -67,28 +73,10 @@
     <None Include="FrameBufferShader.vs">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="5.1.framebuffers.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="7.4.camera.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="7.4.camera.vs">
-      <Filter>Shader Files</Filter>
-    </None>
     <None Include="LampShader.vs">
       <Filter>Shader Files</Filter>
     </None>
     <None Include="LampShader.fs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers_screen.vs">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="5.1.framebuffers_screen.fs">
       <Filter>Shader Files</Filter>
     </None>
     <None Include="SkyBox.vs">

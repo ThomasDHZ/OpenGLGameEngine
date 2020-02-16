@@ -12,6 +12,7 @@
 #include "../OpenGL.Graphics2D/Layer2D.h"
 #include "../OpenGL.Graphics2D/DisplayManager2D.h"
 #include "SkyBox.h"
+#include "Model.h"
 
 class Game
 {
@@ -44,6 +45,8 @@ private:
 	Mesh plane;
 	Mesh Windows;
 	Mesh Floor;
+	Model NewModel;
+
 	SkyBox skybox;
 
 	std::shared_ptr<Texture> DQ1MapTexture;
@@ -67,7 +70,7 @@ private:
 
 	GameMode GameType;
 
-	//FrameBuffer fBuffer;
+	FrameBuffer fBuffer;
 	//BackGroundLayer backgroundLayer;
 	//Layer2D layer;
 
@@ -85,7 +88,6 @@ public:
 	void Update2D();
 	void ProcessMouse();
 	void ProcessInput();
-	unsigned int LoadCubeMap(std::vector<std::string> faces);
 
 	GLFWwindow* GetWindow() { return Window.GetWindow(); }
 };
