@@ -3,7 +3,7 @@
 #include "../Engine.Shared/Vertex.h"
 #include "shader_m.h"
 
-class Mesh
+class EngineMesh
 {
 private:
 	unsigned int VertexCount;
@@ -19,14 +19,15 @@ private:
 	glm::mat4 ModelMatrix;
 
 public:
-	Mesh();
-	Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList);
-	~Mesh();
+	EngineMesh();
+	EngineMesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList);
+	~EngineMesh();
 
-	Mesh& operator=(const Mesh& rhs);
+	EngineMesh& operator=(const EngineMesh& rhs);
 
 	void Update(unsigned int TextureIDz, Shader2 shader);
 	void Update(unsigned int TextureIDz, unsigned int TextureIDz2, Shader2 shader);
+	void Update(unsigned int TextureIDz, unsigned int TextureIDz2, unsigned int ReflectionMap, Shader2 shader);
 	void SetTextureID(unsigned int textureID);
 	void DeleteBuffers();
 

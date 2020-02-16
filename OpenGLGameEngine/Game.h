@@ -40,11 +40,11 @@ private:
 	Shader2 screenShader;
 	Shader2 SkyBoxShader;
 
-	Mesh cube;
-	Mesh LightMesh;
-	Mesh plane;
-	Mesh Windows;
-	Mesh Floor;
+	EngineMesh cube;
+	EngineMesh LightMesh;
+	EngineMesh plane;
+	EngineMesh Windows;
+	EngineMesh Floor;
 	Model NewModel;
 
 	SkyBox skybox;
@@ -57,6 +57,7 @@ private:
 	Texture containerTexture;
 	Texture diffuseMap;
 	Texture specularMap;
+	Texture reflectionMap;
 	Texture textureFrame;
 	Texture textureFrame2;
 	Texture BlankTexture;
@@ -76,8 +77,6 @@ private:
 
 	DisplayManager2D DManger2D;
 
-	unsigned int skyboxVAO, skyboxVBO;
-	unsigned int cubemapTexture;
 public:
 	Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, unsigned int width, unsigned int height, GameMode gameMode, const char* WindowName);
 	~Game();

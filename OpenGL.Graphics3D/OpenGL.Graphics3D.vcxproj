@@ -146,6 +146,7 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\OPENGLGAMEENGINE\MESH.CPP" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Mesh.cpp" />

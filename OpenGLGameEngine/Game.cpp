@@ -163,11 +163,11 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 		FileSystem::getPath("Assets/back.jpg"),
 	};
 
-	cube = Mesh(vertices, indices);
-	LightMesh = Mesh(vertices, indices);
-	plane = Mesh(plainVert, indices);
-	Windows = Mesh(transparentVertices, indices);
-	Floor = Mesh(planeVertices, indices);
+	cube = EngineMesh(vertices, indices);
+	LightMesh = EngineMesh(vertices, indices);
+	plane = EngineMesh(plainVert, indices);
+	Windows = EngineMesh(transparentVertices, indices);
+	Floor = EngineMesh(planeVertices, indices);
 	NewModel = Model("C://Users//ZZT//source//repos//OpenGLGameEngine//objects//nanosuit//nanosuit.obj");
 	skybox = SkyBox(faces);
 
@@ -179,6 +179,7 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	//DQ1MapTexture = std::make_shared<Texture>("Assets/alefgardfull4KTest.bmp");
 	diffuseMap = Texture("Assets/container2.png");
 	specularMap = Texture("Assets/container2_specular.png");
+	reflectionMap = Texture("Assets/container2_reflection.png");
 	textureFrame = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 	textureFrame2 = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
 	BlankTexture = Texture(Window.GetWindowWidth(), Window.GetWindowHeight());
@@ -194,6 +195,8 @@ Game::Game(unsigned int openGLVersionMajor, unsigned int openGLVersionMinor, uns
 	shader.use();
 	shader.setInt("material.diffuse", 0);
 	shader.setInt("material.specular", 1);
+	shader.setInt("material.reflection", 2);
+	shader.setInt("skybox", 3);
 
 	DManger2D = DisplayManager2D(Window.GetWindowWidth(), Window.GetWindowHeight(), 30);
 	DManger2D.AddBackGroundImage(DQ1MapTexture);
@@ -312,12 +315,12 @@ void Game::Update()
 
 	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)Window.GetWindowWidth() / (float)Window.GetWindowHeight(), 0.1f, 100.0f);
 	glm::mat4 view = camera.GetViewMatrix();
+	glm::mat4 model = glm::mat4(1.0f);
+
 	shader.setMat4("projection", projection);
 	shader.setMat4("view", view);
-
-	glm::mat4 model = glm::mat4(1.0f);
 	shader.setMat4("model", model);
-
+	shader.setVec3("cameraPos", camera.Position);
 
 	for (unsigned int i = 0; i < 10; i++)
 	{
@@ -328,6 +331,8 @@ void Game::Update()
 
 	Floor.Update(FloorTexture.GetTextureID(), BlankTexture.GetTextureID(), shader);
 
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox.GetCubemapTexture());
 	NewModel.Draw(shader);
 
 	// also draw the lamp object(s)
@@ -339,7 +344,7 @@ void Game::Update()
 	for (unsigned int i = 0; i < 4; i++)
 	{
 		cube.SetPosition(pointLightPositions[i]);
-		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), lampShader);
+		cube.Update(diffuseMap.GetTextureID(), specularMap.GetTextureID(), reflectionMap.GetTextureID(), lampShader);
 	}
 
 	skybox.Update(SkyBoxShader, camera, Window.GetWindowWidth(), Window.GetWindowHeight());

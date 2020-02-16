@@ -5,6 +5,7 @@ out vec4 FragColor;
 struct Material {
     sampler2D diffuse;
     sampler2D specular;
+	sampler2D reflection;
     float shininess;
 }; 
 
@@ -54,11 +55,14 @@ uniform DirLight dirLight;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform SpotLight spotLight;
 uniform Material material;
+uniform vec3 cameraPos;
+uniform samplerCube skybox;
 
 // function prototypes
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
+vec3 CalcReflection(vec3 normal, vec3 fragPos, vec3 cameraPos);
 
 void main()
 {    
@@ -66,6 +70,7 @@ void main()
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
     
+	vec3 result = CalcReflection(norm, FragPos, cameraPos);
     // == =====================================================
     // Our lighting is set up in 3 phases: directional, point lights and an optional flashlight
     // For each phase, a calculate function is defined that calculates the corresponding color
@@ -73,14 +78,15 @@ void main()
     // this fragment's final color.
     // == =====================================================
     // phase 1: directional lighting
-    vec3 result = CalcDirLight(dirLight, norm, viewDir);
+    result += CalcDirLight(dirLight, norm, viewDir);
     // phase 2: point lights
     for(int i = 0; i < NR_POINT_LIGHTS; i++)
         result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);    
     // phase 3: spot light
     result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
-    
-	result = pow(result, vec3(1.0f/2.2f));
+	 // phase 4: reflection
+	 result += CalcReflection(norm, FragPos, cameraPos);
+   
 
     FragColor = vec4(result, 1.0);
 }
@@ -149,4 +155,11 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     return (ambient + diffuse + specular);
 }
 
-
+vec3 CalcReflection(vec3 normal, vec3 fragPos, vec3 cameraPos)
+{
+	vec3 I = normalize(fragPos - cameraPos);
+	vec3 R = reflect(I, normalize(normal));
+	vec3 reflCol = texture(skybox, R).rgb;
+	vec3 reflTex = texture(material.reflection, TexCoords).rgb;
+	return reflCol * reflTex;
+}

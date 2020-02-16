@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glm\ext\matrix_transform.hpp>
 
-Mesh::Mesh()
+EngineMesh::EngineMesh()
 {
 	VertexCount = 0;
 	VAO = 0;
@@ -11,7 +11,7 @@ Mesh::Mesh()
 	EBO = 0;
 }
 
-Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList)
+EngineMesh::EngineMesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int>& IndiceList)
 {
 	VertexCount = VertexList.size();
 
@@ -38,11 +38,11 @@ Mesh::Mesh(const std::vector<Vertex>& VertexList, const std::vector<unsigned int
 
 }
 
-Mesh::~Mesh()
+EngineMesh::~EngineMesh()
 {
 }
 
-Mesh& Mesh::operator=(const Mesh& rhs)
+EngineMesh& EngineMesh::operator=(const EngineMesh& rhs)
 {
 	VertexCount = rhs.VertexCount;
 	IndiceCount = rhs.IndiceCount;
@@ -58,7 +58,7 @@ Mesh& Mesh::operator=(const Mesh& rhs)
 	return *this;
 }
 
-void Mesh::Update(unsigned int TextureIDz, Shader2 shader)
+void EngineMesh::Update(unsigned int TextureIDz, Shader2 shader)
 {
 	ModelMatrix = glm::mat4(1.0f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
@@ -75,7 +75,7 @@ void Mesh::Update(unsigned int TextureIDz, Shader2 shader)
 	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
 }
 
-void Mesh::Update(unsigned int TextureIDz, unsigned int TextureIDz2, Shader2 shader)
+void EngineMesh::Update(unsigned int TextureIDz, unsigned int TextureIDz2, Shader2 shader)
 {
 	ModelMatrix = glm::mat4(1.0f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
@@ -94,64 +94,85 @@ void Mesh::Update(unsigned int TextureIDz, unsigned int TextureIDz2, Shader2 sha
 	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
 }
 
-void Mesh::SetTextureID(unsigned int textureID)
+void EngineMesh::Update(unsigned int TextureIDz, unsigned int TextureIDz2, unsigned int ReflectionMap, Shader2 shader)
+{
+	ModelMatrix = glm::mat4(1.0f);
+	ModelMatrix = glm::translate(ModelMatrix, Position);
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	ModelMatrix = glm::scale(ModelMatrix, Scale);
+
+	glBindVertexArray(VAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, TextureIDz);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, TextureIDz2);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, ReflectionMap);
+
+	shader.setMat4("model", ModelMatrix);
+	glDrawArrays(GL_TRIANGLES, 0, VertexCount);
+}
+
+void EngineMesh::SetTextureID(unsigned int textureID)
 {
 	TextureID = textureID;
 }
 
-void Mesh::DeleteBuffers()
+void EngineMesh::DeleteBuffers()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 }
 
-void Mesh::SetModelMatrix(const glm::mat4 modelMatrix)
+void EngineMesh::SetModelMatrix(const glm::mat4 modelMatrix)
 {
 	ModelMatrix = modelMatrix;
 }
 
-void Mesh::SetPosition(const float x, const float y, const float z)
+void EngineMesh::SetPosition(const float x, const float y, const float z)
 {
 	Position = glm::vec3(x, y, z);
 }
 
-void Mesh::SetPosition(const glm::vec3 position)
+void EngineMesh::SetPosition(const glm::vec3 position)
 {
 	Position = position;
 }
 
-void Mesh::SetRotation(const float x, const float y, const float z)
+void EngineMesh::SetRotation(const float x, const float y, const float z)
 {
 	Rotation = glm::vec3(x, y, z);
 }
 
-void Mesh::SetRotation(const glm::vec3 rotation)
+void EngineMesh::SetRotation(const glm::vec3 rotation)
 {
 	Rotation = rotation;
 }
 
-void Mesh::SetRotationX(const float x)
+void EngineMesh::SetRotationX(const float x)
 {
 	Rotation.x = x;
 }
 
-void Mesh::SetRotationY(const float y)
+void EngineMesh::SetRotationY(const float y)
 {
 	Rotation.y = y;
 }
 
-void Mesh::SetRotationZ(const float z)
+void EngineMesh::SetRotationZ(const float z)
 {
 	Rotation.z = z;
 }
 
-void Mesh::SetScale(const float x, const float y, const float z)
+void EngineMesh::SetScale(const float x, const float y, const float z)
 {
 	Scale = glm::vec3(x, y, z);
 }
 
-void Mesh::SetScale(const glm::vec3 scale)
+void EngineMesh::SetScale(const glm::vec3 scale)
 {
 	Scale = scale;
 }
